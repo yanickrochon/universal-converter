@@ -2,7 +2,7 @@ module.exports = {
   category: 'area',
   transform: [
     {
-      dimensions: ['length', 'length'],
+      dimensions: ['distance', 'distance'],
       from: function (x, y) {
         return x * y;
       },
