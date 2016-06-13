@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'dynamic viscosity',
-  //transform: [],
+  name: 'dynamic viscosity',
+  //converters: [],
   base: 'pascal second',
   aliases: {
     'dyne second/cm²': 'dyne second/square centimeter',

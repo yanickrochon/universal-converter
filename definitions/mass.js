@@ -1,8 +1,19 @@
 module.exports = {
-  category: 'mass',
-  //transform: [],
+  name: 'mass',
+  //converters: [],
   base: 'kilogram',
-  //aliases: { },
+  aliases: {
+    'as': 'as, ass [Northern Europe]',
+    'ass': 'as, ass [Northern Europe]',
+    'atomic mass unit': 'atomic mass unit [1998]',
+    'carat': 'carat [international]',
+    'carga': 'carga [Mexico]',
+    'chalder': 'chalder, chaldron',
+    'chaldron': 'chalder, chaldron',
+    'lb': 'pound',
+    'lbs': 'pound',
+    'ton': 'ton [metric]'
+  },
   units: {
     'arratel, artel [Arab]': 0.5,
     'arroba [Portugal]': 14.69,
@@ -94,7 +105,6 @@ module.exports = {
     'last [Germany]': 2000,
     'last [US]': 0.45359237 * 4000,
     'last [US, wool]': 0.45359237 * 4368,
-    'lb, lbs': 0.45359237,
     'liang [China]': 0.05,
     'libra [Italy]': 0.339,
     'libra [Portugal, Spain]': 0.459,

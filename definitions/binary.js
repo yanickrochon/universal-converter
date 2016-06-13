@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'binary',
-  //transform: [],
+  name: 'binary',
+  //converters: [],
   base: 'byte',
   aliases: {
     'KB': 'kilobyte',

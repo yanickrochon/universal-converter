@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'time',
-  //transform: [],
+  name: 'time',
+  //converters: [],
   base: 'second',
   //aliases: { },
   units: {

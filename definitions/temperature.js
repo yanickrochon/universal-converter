@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'temperature',
-  //transform: [],
+  name: 'temperature',
+  //converters: [],
   base: 'kelvin',
   aliases: {
     'C': 'celcius',

@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'density',
-  //transform: [],
+  name: 'density',
+  //converters: [],
   base: 'gram/litre',
   //aliases: { },
   units: {

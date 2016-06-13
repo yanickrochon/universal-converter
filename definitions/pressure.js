@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'pressure',
-  //transform: [],
+  name: 'pressure',
+  //converters: [],
   base: 'newton/square meter',
   aliases: {
     'PSI': 'pound/square inch'

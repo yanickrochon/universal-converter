@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'luminance',
-  //transform: [],
+  name: 'luminance',
+  //converters: [],
   base: 'candela/square meter',
   //aliases: { },
   units: {

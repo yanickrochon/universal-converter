@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'angle',
-  //transform: [],
+  name: 'angle',
+  //converters: [],
   base: 'radian',
   //aliases: { },
   units: {

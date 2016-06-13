@@ -6,7 +6,7 @@ This package is an effort to provide a flexible and complete conversion tool to 
 
 ## Disclaimer
 
-A the moment, the precision of values in this package is to the 7th digit. Do not use if life are involed, or if manipulating banking money.
+A the moment, the precision of values in this package is as reliable as [IEEE-754 double-precision](https://en.wikipedia.org/wiki/IEEE_floating_point) arithmetics allow. Do not use if lives are involed, or if manipulating banking money.
 
 
 ## Install
@@ -16,7 +16,33 @@ A the moment, the precision of values in this package is to the 7th digit. Do no
 
 ## Usage
 
-*Soon*
+```javascript
+var Converter = require('universal-converter');
+
+var distance = Converter('distance');
+var area = Converter('area');
+
+// convert miles to kilemeters
+distance.convert(150, 'mile').to('kilometer') + 'km';
+// -> "241.4016km"
+
+// convert base unit (meters) to kilemeters
+distance.convert(2000).to('km');
+// -> 2
+
+// convert miles to base unit
+distance.convert(100, 'mile').toBase() + 'm (' + distance.baseUnit + ')';
+// -> "160934.4m (meter)"
+
+// convert feet and inch to square meters
+distance.convert([60, 84], ['feet', 'inch']).to(area, 'square meter') + 'm²';
+// -> "27.907488m²"
+
+// convert back to feet and inch...
+area.convert(27.907488, 'square meter').to(distance, ['feet', 'inch']);
+// -> [60, 84]
+
+```
 
 
 ## Contribution

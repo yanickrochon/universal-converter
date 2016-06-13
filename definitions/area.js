@@ -1,14 +1,16 @@
 module.exports = {
-  category: 'area',
-  transform: [
+  name: 'area',
+  converters: [
     {
-      dimensions: ['distance', 'distance'],
-      from: function (x, y) {
-        return x * y;
-      },
-      to: function (value) {
-        var x = Math.sqrt(value);
-        return [x, x];
+      params: ['distance'],
+      convert: function (a) {
+        return a * a;
+      }
+    },
+    {
+      params: ['distance', 'distance'],
+      convert: function (a, b) {
+        return a * b;
       }
     }
   ],

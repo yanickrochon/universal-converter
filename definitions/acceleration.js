@@ -1,8 +1,8 @@
 
 
 module.exports = {
-  category: 'acceleration',
-  //transform: [],
+  name: 'acceleration',
+  //converters: [],
   base: 'meter/square second',
   aliases: {
     'G': 'g-unit'
@@ -22,7 +22,7 @@ module.exports = {
     'hectometer/square second': 100,
     'kilometer/hour second': 0.2777777777777778,
     'kilometer/square second': 1000,
-    'inch/square second' 0.0254,
+    'inch/square second': 0.0254,
     'meter/square second': 1,
     'mile/square second': 1609.344,
     'mile/hour minute': 0.007450666666666667,

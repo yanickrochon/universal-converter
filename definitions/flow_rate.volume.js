@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'flow rate [volume]',
-  //transform: [],
+  name: 'flow rate [volume]',
+  //converters: [],
   base: 'cubic meter/second',
   //aliases: { },
   units: {

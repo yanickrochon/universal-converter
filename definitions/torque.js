@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'torque',
-  //transform: [],
+  name: 'torque',
+  //converters: [],
   base: 'newton meter',
   //aliases: { },
   units: {

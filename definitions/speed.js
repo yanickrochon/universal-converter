@@ -1,8 +1,10 @@
 module.exports = {
-  category: 'speed',
-  //transform: [],
+  name: 'speed',
+  //converters: [],
   base: 'meter/second',
-  // aliases: { },
+  aliases: {
+    'kph': 'kilometer/hour'
+  },
   units: {
     'benz': 1,
     'centimeter/day': 0.01 / 86400,

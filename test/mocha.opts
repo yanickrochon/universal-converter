@@ -1,4 +1,5 @@
 --require should
 --timeout 30000
 --reporter spec
+--recursive
 --ui bdd

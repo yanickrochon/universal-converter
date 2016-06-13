@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'force',
-  //transform: [],
+  name: 'force',
+  //converters: [],
   base: 'newton',
   //aliases: { },
   units: {

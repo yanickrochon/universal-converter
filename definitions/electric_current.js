@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'electric current',
-  //transform: [],
+  name: 'electric current',
+  //converters: [],
   base: 'amp',
   //aliases: { },
   units: {

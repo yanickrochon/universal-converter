@@ -1,6 +1,6 @@
 module.exports = {
-  category: 'volume',
-  //transform: [],
+  name: 'volume',
+  //converters: [],
   base: 'stere',
   //aliases: { },
   units: {

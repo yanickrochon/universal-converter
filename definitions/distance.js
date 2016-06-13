@@ -1,6 +1,19 @@
 module.exports = {
-  category: 'distance',
-  //transform: [],
+  name: 'distance',
+  converters: [
+    {
+      params: ['area'],
+      convert: function (a) {
+        return Math.sqrt(a);
+      }
+    },
+    {
+      params: ['area', 'distance'],
+      convert: function (a, b) {
+        return a / b;
+      }
+    }
+  ],
   base: 'meter',
   aliases: {
     'in': 'inch',
@@ -8,6 +21,8 @@ module.exports = {
     'yd': 'yard',
     'm': 'meter',
     'km': 'kilometer',
+    'inch': 'inch [international, U.S.]',
+    'feet': 'feet [international, U.S.]',
     'mile': 'mile [international]'
   },
   units: {
