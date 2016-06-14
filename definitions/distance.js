@@ -16,8 +16,8 @@ module.exports = {
   ],
   base: 'meter',
   aliases: {
-    'in': 'inch',
-    'ft': 'feet',
+    'in': 'inch [international, U.S.]',
+    'ft': 'feet [international, U.S.]',
     'yd': 'yard',
     'm': 'meter',
     'km': 'kilometer',

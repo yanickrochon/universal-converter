@@ -19,7 +19,8 @@ module.exports = {
     'arpent': 'arpent [Canada]',
     'kattha': 'kattha [Nepal]',
     'perche': 'perche [Canada]',
-    'tatami': 'tatami [Japan]'
+    'tatami': 'tatami [Japan]',
+    'yard': 'square yard'
   },
   units: {
     'acre': 0.09290304 * 43560,
@@ -148,7 +149,6 @@ module.exports = {
     'township': 0.092903412 * 43560 * 23040,
     'tsubo': 3.3058,
     'tunnland': 4936.4,
-    'yard': 0.09290304 * 9,
     'virgate': 120000
   }
 };

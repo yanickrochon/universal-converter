@@ -3,7 +3,8 @@ module.exports = {
   //converters: [],
   base: 'meter/second',
   aliases: {
-    'kph': 'kilometer/hour'
+    'kph': 'kilometer/hour',
+    'mph': 'mile/hour'
   },
   units: {
     'benz': 1,

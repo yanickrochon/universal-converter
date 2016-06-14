@@ -6,7 +6,9 @@ This package is an effort to provide a flexible and complete conversion tool to 
 
 ## Disclaimer
 
-A the moment, the precision of values in this package is as reliable as [IEEE-754 double-precision](https://en.wikipedia.org/wiki/IEEE_floating_point) arithmetics allow. Do not use if lives are involed, or if manipulating banking money.
+A the moment, the precision of values in this package is as reliable as
+[IEEE-754 double-precision](https://en.wikipedia.org/wiki/IEEE_floating_point)
+arithmetics allow. Do not use if lives are involed, or if manipulating banking money.
 
 
 ## Install
@@ -19,31 +21,38 @@ A the moment, the precision of values in this package is as reliable as [IEEE-75
 ```javascript
 var Converter = require('universal-converter');
 
-var distance = Converter('distance');
-var area = Converter('area');
-
-// convert miles to kilemeters
-distance.convert(150, 'mile').to('kilometer') + 'km';
-// -> "241.4016km"
-
-// convert base unit (meters) to kilemeters
-distance.convert(2000).to('km');
+/** Convert from one unit to another **/
+Converter.convert('distance').from(2000, 'm').to('km');    // 2000 m = ? km
 // -> 2
+Converter.convert('distance').from(2, 'kilometer').to('meter');   // 2 km = ? m
+// -> 2000
+Converter.convert('speed').from(100, 'kph').to('mph');   // 100 km/h = ? mp/h
+// -> 62.1371192237334
 
-// convert miles to base unit
-distance.convert(100, 'mile').toBase() + 'm (' + distance.baseUnit + ')';
-// -> "160934.4m (meter)"
+/** Convert from one type to another **/
+Converter.convert('distance').from(100, 'inch').as('area').to('square foot') + ' ft²';    // 100 in * 100 in = ? ft²
+// -> "69.44444444444444 ft²"
+Converter.convert('distance').from(60, 'inch').as('area').with('distance', 84, 'feet').to('square meter') + ' m¹';   // 60 in * 84 ft = ? m²
+// -> "39.01927680000001 m¹"
+Converter.convert('area').from(39.01927680000001, 'square meter').as('distance').with('distance', 84, 'feet').to('inch') + ' in';  // m² / 84 ft = ? in
+// -> "60.00000000000001 in"
 
-// convert feet and inch to square meters
-distance.convert([60, 84], ['feet', 'inch']).to(area, 'square meter') + 'm²';
-// -> "27.907488m²"
-
-// convert back to feet and inch...
-area.convert(27.907488, 'square meter').to(distance, ['feet', 'inch']);
-// -> [60, 84]
-
+/** Check possible conversions **/
+Converter.convert('distance').as('area');   // can a distance be converted to an area?
+// -> true
+Converter.convert('area').as('speed');      // can an area be converted to a speed?
+// -> false
 ```
 
+```
+Converter.convert( type )
+    .as( type ) : Boolean
+    .from( value, unit )
+       .to( unit ) : Number
+       .as( type )
+           .with( type, value, unit ) ...
+           .to( unit ) : Number
+```
 
 ## Contribution
 
@@ -73,4 +82,3 @@ FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
 COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
 IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
