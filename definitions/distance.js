@@ -1,19 +1,19 @@
 module.exports = {
   name: 'distance',
-  converters: [
-    {
-      params: ['area'],
-      convert: function (a) {
-        return Math.sqrt(a);
-      }
+  conversion: {
+    params: {
+      surface: 'area',
+      width: 'distance'
     },
-    {
-      params: ['area', 'distance'],
-      convert: function (a, b) {
-        return a / b;
+    converters: {
+      square(surface) {
+        return Math.sqrt(surface);
+      },
+      rectangle(surface, width) {
+        return surface / width;
       }
     }
-  ],
+  },
   base: 'meter',
   aliases: {
     'in': 'inch [international, U.S.]',

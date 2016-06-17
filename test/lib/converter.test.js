@@ -8,20 +8,20 @@ describe('Testing Converter', function () {
   before(function () {
     Units.registerType('distance', {
       name: 'distance',
-      converters: [
-        {
-          params: ['area'],
-          convert: function (a) {
-            return Math.sqrt(a);
-          }
+      conversion: {
+        params: {
+          surface: 'area',
+          width: 'distance'
         },
-        {
-          params: ['area', 'distance'],
-          convert: function (a, b) {
-            return a / b;
+        converters: {
+          square(surface) {
+            return Math.sqrt(surface);
+          },
+          rectangle(surface, width) {
+            return surface / width;
           }
         }
-      ],
+      },
       base: 'meter',
       aliases: {
         'in': 'inch [international, U.S.]',
@@ -44,20 +44,20 @@ describe('Testing Converter', function () {
     });
     Units.registerType('area', {
       name: 'area',
-      converters: [
-        {
-          params: ['distance'],
-          convert: function (a) {
-            return a * a;
-          }
+      cconversion: {
+        params: {
+          width: 'distance',
+          length: 'distance'
         },
-        {
-          params: ['distance', 'distance'],
-          convert: function (a, b) {
-            return a * b;
+        converters: {
+          square(width) {
+            return width * width;
+          },
+          rectangle(width, length) {
+            return width * length;
           }
         }
-      ],
+      },
       base: 'square meter',
       units: {
         'square foot': 0.09290304,
@@ -79,7 +79,7 @@ describe('Testing Converter', function () {
   describe('Validate possible conversions', function () {
 
     it('should validate distance to area', function () {
-      Converter.convert( 'distance' ).as('area').should.be.true;
+      Converter.convert( 'distance' ).as( 'area' ).isCompatible.should.be.true;
     });
 
   });
@@ -88,7 +88,8 @@ describe('Testing Converter', function () {
 
     it('should convert to', function () {
       Converter.convert( 'distance' ).from( 1, 'km' ).to( 'm' ).should.equal( 1000 );
-      Converter.convert( 'area' ).from( 2, 'square kilometer' ).as( 'distance' ).with( 'distance', 700, 'yard' ).to( 'yard' ).should.be.approximately( 3417.1144, 0.001 );
+      Converter.convert( 'area' ).as( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 1000, 'meter' ).to( 'km' ).should.be.approximately( 2, 0.001 );
+      Converter.convert( 'area' ).as( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 700, 'yard' ).to( 'yard' ).should.be.approximately( 3417.1144, 0.001 );
     });
 
   });

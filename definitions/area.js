@@ -1,19 +1,19 @@
 module.exports = {
   name: 'area',
-  converters: [
-    {
-      params: ['distance'],
-      convert: function (a) {
-        return a * a;
-      }
+  conversion: {
+    params: {
+      width: 'distance',
+      length: 'distance'
     },
-    {
-      params: ['distance', 'distance'],
-      convert: function (a, b) {
-        return a * b;
+    converters: {
+      square(width) {
+        return width * width;
+      },
+      rectangle(width, length) {
+        return width * length;
       }
     }
-  ],
+  },
   base: 'square meter',
   aliases: {  
     'arpent': 'arpent [Canada]',

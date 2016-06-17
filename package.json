@@ -24,7 +24,9 @@
     "universal",
     "conversion"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "function-arguments": "^1.0.4"
+  },
   "devDependencies": {
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",

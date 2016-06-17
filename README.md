@@ -26,32 +26,47 @@ Converter.convert('distance').from(2000, 'm').to('km');    // 2000 m = ? km
 // -> 2
 Converter.convert('distance').from(2, 'kilometer').to('meter');   // 2 km = ? m
 // -> 2000
-Converter.convert('speed').from(100, 'kph').to('mph');   // 100 km/h = ? mp/h
+Converter.convert('speed').from('100 kph').to('mph');   // 100 km/h = ? mp/h
 // -> 62.1371192237334
 
 /** Convert from one type to another **/
-Converter.convert('distance').from(100, 'inch').as('area').to('square foot') + ' ft²';    // 100 in * 100 in = ? ft²
+Converter.convert('distance')
+  .as('area')
+  .using('square')
+  .with( 'width', 100, 'inch' )
+  .to('square foot') + ' ft';    // 100 in * 100 in = ? ft²
 // -> "69.44444444444444 ft²"
-Converter.convert('distance').from(60, 'inch').as('area').with('distance', 84, 'feet').to('square meter') + ' m¹';   // 60 in * 84 ft = ? m²
+Converter.convert('distance')
+  .as('area')
+  .using('rectangle')
+  .with('width', ' 60 inch')
+  .with('length', '84 feet')
+  .to('square meter') + ' m¹';   // 60 in * 84 ft = ? m²
 // -> "39.01927680000001 m¹"
-Converter.convert('area').from(39.01927680000001, 'square meter').as('distance').with('distance', 84, 'feet').to('inch') + ' in';  // m² / 84 ft = ? in
+Converter.convert('area')
+  .as('distance')
+  .using('rectangle')
+  .with('area', 39.01927680000001, 'square meter')
+  .with('width', '84 feet')
+  .to('inch') + ' in';  // m² / 84 ft = ? in
 // -> "60.00000000000001 in"
 
 /** Check possible conversions **/
-Converter.convert('distance').as('area');   // can a distance be converted to an area?
+Converter.convert('distance').as('area').isCompatible();   // can a distance be converted to an area?
 // -> true
-Converter.convert('area').as('speed');      // can an area be converted to a speed?
+Converter.convert('area').as('speed').isCompatible();      // can an area be converted to a speed?
 // -> false
 ```
 
 ```
-Converter.convert( type )
-    .as( type ) : Boolean
-    .from( value, unit )
-       .to( unit ) : Number
-       .as( type )
-           .with( type, value, unit ) ...
-           .to( unit ) : Number
+Converter.convert( type : String )
+    .from( value : Number, unit : String ) | .from( valueAndUnit : String )
+      .to( unit : String ) : Number
+    .as( type : String )
+      .using( fnName : String ) | .using( fnName : String, params : Object )
+        .with( value : Number, unit : String ) | .with( valueAndUnit : String ) | .with( params : Object ) : [Circular]
+        .to( unit ) : Number
+      .isCompatible : Boolean
 ```
 
 ## Contribution
