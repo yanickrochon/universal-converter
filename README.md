@@ -30,21 +30,18 @@ Converter.convert('speed').from('100 kph').to('mph');   // 100 km/h = ? mp/h
 // -> 62.1371192237334
 
 /** Convert from one type to another **/
-Converter.convert('distance')
-  .as('area')
+Converter.convert('area')
   .using('square')
   .with( 'width', 100, 'inch' )
   .to('square foot') + ' ft';    // 100 in * 100 in = ? ft²
 // -> "69.44444444444444 ft²"
-Converter.convert('distance')
-  .as('area')
+Converter.convert('area')
   .using('rectangle')
   .with('width', ' 60 inch')
   .with('length', '84 feet')
   .to('square meter') + ' m¹';   // 60 in * 84 ft = ? m²
 // -> "39.01927680000001 m¹"
-Converter.convert('area')
-  .as('distance')
+Converter.convert('distance')
   .using('rectangle')
   .with('area', 39.01927680000001, 'square meter')
   .with('width', '84 feet')
@@ -52,9 +49,9 @@ Converter.convert('area')
 // -> "60.00000000000001 in"
 
 /** Check possible conversions **/
-Converter.convert('distance').as('area').isCompatible();   // can a distance be converted to an area?
+Converter.convert('distance').isCompatible('area');   // can a distance be converted to an area?
 // -> true
-Converter.convert('area').as('speed').isCompatible();      // can an area be converted to a speed?
+Converter.convert('area').isCompatible('velocity');   // can an area be converted to a velocity?
 // -> false
 ```
 
@@ -62,12 +59,27 @@ Converter.convert('area').as('speed').isCompatible();      // can an area be con
 Converter.convert( type : String )
     .from( value : Number, unit : String ) | .from( valueAndUnit : String )
       .to( unit : String ) : Number
-    .as( type : String )
-      .using( fnName : String ) | .using( fnName : String, params : Object )
-        .with( value : Number, unit : String ) | .with( valueAndUnit : String ) | .with( params : Object ) : [Circular]
-        .to( unit ) : Number
-      .isCompatible : Boolean
+    .using( fnName : String )
+      .with( paramName : String, value : Number, unit : String ) | .with( paramName : String, valueAndUnit : String ) : [Circular]
+      .to( unit : String ) : Number
+    .isCompatible( type : String ) : Boolean
 ```
+
+## Conversion functions
+
+### Physics
+
+* **distanceOverVelocity**(*initialVelocity:velocity*, *velocity:velocity*, *distance:distance*) : *time*
+  Example:
+  ```
+  Converter.convert('time').using('distanceOverVelocity')
+    .with('initialVelocity', '60 mph')
+    .with('velocity', '60 mph')          // ie. constant speed
+    .with('distance', '275 mile')
+    .to('hour');
+  // -> 4.58333...   (or a little over 4.5 hours)
+  ```
+
 
 ## Contribution
 

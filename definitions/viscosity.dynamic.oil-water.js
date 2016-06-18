@@ -1,6 +1,6 @@
 module.exports = {
   name: 'dynamic viscosity [oil and water]',
-  //converters: [],
+  //conversion: {},
   base: 'poise',
   //aliases: { },
   units: {

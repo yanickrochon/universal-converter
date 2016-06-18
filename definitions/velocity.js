@@ -1,6 +1,21 @@
 module.exports = {
-  name: 'speed',
-  //converters: [],
+  name: 'velocity',
+  conversion: {
+    params: {
+      initialVelocity: 'velocity',
+      velocity: 'velocity',
+      acceleration: 'acceleration',
+      time: 'time'
+    },
+    converters: {
+      accelerationAndTime(initialVelocity, acceleration, time) {
+        return (initialVelocity || 0) + ((acceleration || 0) * time);
+      },
+      initialVelocity(velocity, acceleration, time) {
+        return (velocity || 0) - ((acceleration || 0) * time);
+      }
+    }
+  },
   base: 'meter/second',
   aliases: {
     'kph': 'kilometer/hour',

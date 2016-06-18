@@ -1,6 +1,6 @@
 module.exports = {
   name: 'kinematic viscosity',
-  //converters: [],
+  //conversion: {},
   base: 'm²/second',
   //aliases: { },
   units: {

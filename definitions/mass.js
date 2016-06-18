@@ -1,6 +1,6 @@
 module.exports = {
   name: 'mass',
-  //converters: [],
+  //conversion: {},
   base: 'kilogram',
   aliases: {
     'as': 'as, ass [Northern Europe]',

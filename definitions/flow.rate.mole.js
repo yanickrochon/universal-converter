@@ -1,6 +1,6 @@
 module.exports = {
   name: 'flow rate [mole]',
-  //converters: [],
+  //conversion: {},
   base: 'mole/second',
   //aliases: { },
   units: {

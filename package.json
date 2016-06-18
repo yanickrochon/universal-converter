@@ -22,7 +22,9 @@
     "unit",
     "converter",
     "universal",
-    "conversion"
+    "conversion",
+    "math",
+    "physics"
   ],
   "dependencies": {
     "function-arguments": "^1.0.4"

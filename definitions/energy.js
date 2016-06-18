@@ -1,6 +1,6 @@
 module.exports = {
   name: 'energy',
-  //converters: [],
+  //conversion: {},
   base: 'joule',
   //aliases: { },
   units: {

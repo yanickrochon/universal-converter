@@ -3,7 +3,10 @@ module.exports = {
   conversion: {
     params: {
       surface: 'area',
-      width: 'distance'
+      width: 'distance',
+      initialVelocity: 'velocity',
+      velocity: 'velocity',
+      time: 'time'
     },
     converters: {
       square(surface) {
@@ -11,6 +14,9 @@ module.exports = {
       },
       rectangle(surface, width) {
         return surface / width;
+      },
+      velocityAndTime(initialVelocity, velocity, time) {
+        return (initialVelocity + velocity) * time / 2;
       }
     }
   },

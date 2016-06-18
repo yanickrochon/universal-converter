@@ -1,6 +1,6 @@
 module.exports = {
   name: 'electric capacitance',
-  //converters: [],
+  //conversion: {},
   base: 'farad [SI standard]',
   aliases: {
     'farad': 'farad [SI standard]'

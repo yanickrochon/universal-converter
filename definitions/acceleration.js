@@ -2,7 +2,18 @@
 
 module.exports = {
   name: 'acceleration',
-  //converters: [],
+  conversion: {
+    params: {
+      initialVelocity: 'velocity',
+      velocity: 'velocity',
+      time: 'time'
+    },
+    converters: {
+      velocityOverTime(initialVelocity, velocity, time) {
+        return ((velocity || 0) - (initialVelocity || 0)) / time;
+      }
+    }
+  },
   base: 'meter/square second',
   aliases: {
     'G': 'g-unit'

@@ -79,7 +79,8 @@ describe('Testing Converter', function () {
   describe('Validate possible conversions', function () {
 
     it('should validate distance to area', function () {
-      Converter.convert( 'distance' ).as( 'area' ).isCompatible.should.be.true;
+      Converter.convert( 'area' ).isCompatible('distance').should.be.true;
+      Converter.convert( 'area' ).isCompatible('velocity').should.be.false;
     });
 
   });
@@ -88,8 +89,8 @@ describe('Testing Converter', function () {
 
     it('should convert to', function () {
       Converter.convert( 'distance' ).from( 1, 'km' ).to( 'm' ).should.equal( 1000 );
-      Converter.convert( 'area' ).as( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 1000, 'meter' ).to( 'km' ).should.be.approximately( 2, 0.001 );
-      Converter.convert( 'area' ).as( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 700, 'yard' ).to( 'yard' ).should.be.approximately( 3417.1144, 0.001 );
+      Converter.convert( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 1000, 'meter' ).to( 'km' ).should.be.approximately( 2, 0.001 );
+      Converter.convert( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 700, 'yard' ).to( 'yard' ).should.be.approximately( 3417.1144, 0.001 );
     });
 
   });

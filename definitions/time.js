@@ -1,8 +1,31 @@
 module.exports = {
   name: 'time',
-  //converters: [],
+  conversion: {
+    params: {
+      initialVelocity: 'velocity',
+      velocity: 'velocity',
+      acceleration: 'acceleration',
+      distance: 'distance'
+    },
+    converters: {
+      velocityOverAcceleration(initialVelocity, velocity, acceleration) {
+        return ((velocity || 0) - (initialVelocity || 0)) / acceleration;
+      },
+      distanceOverVelocity(initialVelocity, velocity, distance) {
+        return distance * 2 / ((initialVelocity || 0) + velocity);
+      }
+    }
+  },
   base: 'second',
-  //aliases: { },
+  aliases: {
+    'ns': 'nanosecond',
+    'ms': 'millisecond',
+    's': 'second',
+    'm': 'minute',
+    'h': 'hour',
+    'd': 'day',
+    'w': 'week'
+  },
   units: {
     'shake': 1e-8,
     'second': 1,

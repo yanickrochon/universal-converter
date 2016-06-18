@@ -1,6 +1,6 @@
 module.exports = {
   name: 'frequency',
-  //converters: [],
+  //conversion: {},
   base: 'hertz',
   aliases: {
     'hz': 'hertz',

@@ -1,6 +1,6 @@
 module.exports = {
   name: 'power',
-  //converters: [],
+  //conversion: {},
   base: 'newton meter/second',
   aliases: {
     'horsepower': 'horsepower [international]',
