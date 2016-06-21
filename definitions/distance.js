@@ -3,17 +3,17 @@ module.exports = {
   conversion: {
     params: {
       surface: 'area',
-      width: 'distance',
+      length: 'distance',
       initialVelocity: 'velocity',
       velocity: 'velocity',
       time: 'time'
     },
     converters: {
-      square(surface) {
+      squareWidth(surface) {
         return Math.sqrt(surface);
       },
-      rectangle(surface, width) {
-        return surface / width;
+      rectangleWidth(surface, length) {
+        return surface / length;
       },
       velocityAndTime(initialVelocity, velocity, time) {
         return (initialVelocity + velocity) * time / 2;
@@ -28,6 +28,7 @@ module.exports = {
     'm': 'meter',
     'km': 'kilometer',
     'inch': 'inch [international, U.S.]',
+    'foot': 'foot [international, U.S.]',
     'feet': 'feet [international, U.S.]',
     'mile': 'mile [international]'
   },

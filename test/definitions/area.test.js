@@ -19,10 +19,10 @@ describe('Testing Area definition', function () {
   });
 
   it('should calculate from conversion', function () {
-    def.conversion.converters.square(10).should.equal(100);
-    def.conversion.converters.rectangle(10, 50).should.equal(500);
+    def.conversion.converters.squareArea(10).should.equal(100);
+    def.conversion.converters.squareArea(1000).should.equal(def.units['square kilometer']);
+    def.conversion.converters.rectangleArea(10, 50).should.equal(500);
 
-    def.conversion.converters.square(1000).should.equal(def.units['square kilometer']);
     // TODO : check more conversions (i.e. validating unit values)
   });
 

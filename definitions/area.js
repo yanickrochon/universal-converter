@@ -6,10 +6,10 @@ module.exports = {
       length: 'distance'
     },
     converters: {
-      square(width) {
+      squareArea(width) {
         return width * width;
       },
-      rectangle(width, length) {
+      rectangleArea(width, length) {
         return width * length;
       }
     }
