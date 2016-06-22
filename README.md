@@ -95,7 +95,7 @@ console.log(rect.to('acre'));
 // -> 1.6946487061018198
 ```
 
-## units
+## Units
 
 Please, view the [definitions](definitions/) package directory for more information.
 
