@@ -7,6 +7,14 @@ describe('Testing Units', function () {
 
   const customType = {
     name: 'custom',
+    conversion: {
+      params: {
+        test: 'strange'
+      },
+      converters: [
+        function test(test) { return 1; }
+      ]
+    },
     base: 'unit',
     units: {
       'micro unit': 0.001,
@@ -23,7 +31,11 @@ describe('Testing Units', function () {
     },
     units: {
       'foo': 1,
-      'bar': 2
+      'bar': 2,
+      'buz': {
+        fromBase(v) { return 31 - v; },
+        toBase(v) { return -v + 31; }
+      }
     }
   };
   const customUnits = Object.keys(customType.units).sort();
@@ -53,6 +65,36 @@ describe('Testing Units', function () {
     units.getUnitTypeName('foo').should.equal('strange');
     (units.getUnitTypeName('something') === undefined).should.be.true;
   });
+
+  it('should convert to base', function () {
+    for (let i = 0; i < 1000; ++i) {
+      let v = Math.random() * i;
+      units.getType('strange').calcBase(v, 'foo').should.equal(v);
+      units.getType('strange').calc(v, 'foo', 'foo').should.equal(v);
+    }
+  });
+
+  it('should convert bases', function () {
+    units.getType('strange').calc(1, 'foo', 'bar').should.equal(0.5);
+    units.getType('strange').calc(1, 'bar', 'foo').should.equal(2);
+  });
+
+  it('should use conversion functions', function () {
+    units.getType('strange').calc(1, 'foo', 'buz').should.equal(30);
+    units.getType('strange').calc(-1, 'foo', 'buz').should.equal(32);
+    units.getType('strange').calc(47, 'foo', 'buz').should.equal(-16);
+    units.getType('strange').calc(-47, 'foo', 'buz').should.equal(78);
+
+    units.getType('strange').calc(30, 'buz', 'foo').should.equal(1);
+    units.getType('strange').calc(32, 'buz', 'foo').should.equal(-1);
+    units.getType('strange').calc(-16, 'buz', 'foo').should.equal(47);
+    units.getType('strange').calc(78, 'buz', 'foo').should.equal(-47);
+  });
+
+  it('should test compatibility', function () {
+    units.getType('strange').canConvert('custom').should.be.false;
+    units.getType('custom').canConvert('strange').should.be.true;
+  })
 
   after('should unregister', function () {
     units.unregisterType('custom');

@@ -184,7 +184,7 @@ Please, view the [definitions](definitions/) package directory for more informat
   // -> 69.44444444444444
   ```
 
-  * **squareWidth**(*surface : area*) : *distance*
+* **squareWidth**(*surface : area*) : *distance*
   ```js
   // Example
   Converter.convert('distance').using('squareWidth')
