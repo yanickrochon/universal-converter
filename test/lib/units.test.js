@@ -6,15 +6,54 @@ describe('Testing Units', function () {
   const units = require('../../lib/units');
 
 
-  it('should have unit types'/*, function () {
-    units.types.should.not.be.empty();
-  }*/);
+  describe('Registering types', function () {
+    const customType = {
+      name: 'custom',
+      base: 'unit',
+      units: {
+        'micro unit': 0.001,
+        'unit': 1,
+        'mega unit': 1000
+      }
+    };
+    const strangeType = {
+      name: 'strange',
+      base: 'foo',
+      aliases: {
+        'f': 'foo',
+        'b': 'bar'
+      },
+      units: {
+        'foo': 1,
+        'bar': 2
+      }
+    };
+    const customUnits = Object.keys(customType.units).sort();
+    const strangeUnits = Object.keys(strangeType.units).concat(Object.keys(strangeType.aliases)).sort();
+    const allUnits = customUnits.concat(strangeUnits).sort();
 
-  it('should return each types'/*, function () {
-    units.types.forEach(function (type) {
-      units.getType(type).should.have.property('units').be.instanceOf(Object).and.not.be.empty();
+    before('should register', function () {
+      units.types.should.be.empty();
+
+      units.registerType('custom', customType);
+      units.registerType('strange', strangeType);
+
+      units.types.should.not.be.empty().and.deepEqual(['custom', 'strange']);
     });
-  }*/);
+
+    it('should return all available units', function () {
+      units.available('custom').sort().should.deepEqual(customUnits);
+      units.available('strange').sort().should.deepEqual(strangeUnits);
+      units.available().sort().should.deepEqual(allUnits);
+    })
+
+    after('should unregister', function () {
+      units.unregisterType('custom');
+      units.unregisterType('strange');
+
+      units.types.should.be.empty();
+    });
+  });
 
 
 });

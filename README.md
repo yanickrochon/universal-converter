@@ -1,5 +1,9 @@
 # Universal Converter
 
+[![npm version](https://badge.fury.io/js/universal-converter.svg)](https://badge.fury.io/js/universal-converter)
+[![Build Status](https://travis-ci.org/yanickrochon/universal-converter.svg?branch=master)](https://travis-ci.org/yanickrochon/universal-converter)
+[![Coverage Status](https://coveralls.io/repos/github/yanickrochon/universal-converter/badge.svg?branch=master)](https://coveralls.io/github/yanickrochon/universal-converter?branch=master)
+
 Convert just about anything to anything else.
 
 This package is an effort to provide a flexible and complete conversion tool to convert
