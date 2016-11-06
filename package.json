@@ -45,6 +45,7 @@
     "node": ">= 4"
   },
   "files": [
-    "lib"
+    "lib",
+    "definitions"
   ]
 }
