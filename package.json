@@ -1,6 +1,6 @@
 {
   "name": "universal-converter",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Convert just about anything to anything else.",
   "author": "Yanick Rochon <yanick.rochon@gmail.com>",
   "license": "MIT",
@@ -8,7 +8,11 @@
   "scripts": {
     "test": "mocha",
     "test-cov": "istanbul cover _mocha",
-    "test-travis": "istanbul cover _mocha --report lcovonly"
+    "test-travis": "istanbul cover _mocha --report lcovonly",
+    "prepublish": "node_modules/babel-cli/bin/babel.js src --out-dir lib"
+  },
+  "babel": {
+    "presets": ["es2015"]
   },
   "homepage": "https://github.com/yanickrochon/universal-converter#readme",
   "repository": {
@@ -30,6 +34,9 @@
     "function-arguments": "^1.0.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.18.2",
+    "babel-preset-es2015": "^6.18.0",
     "istanbul": "^0.4.3",
     "mocha": "^2.5.3",
     "should": "^9.0.2"
