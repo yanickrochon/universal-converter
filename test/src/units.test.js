@@ -3,7 +3,7 @@
 
 describe('Testing Units', function () {
 
-  const units = require('../../lib/units');
+  const units = require('../../src/units');
 
   const customType = {
     name: 'custom',

@@ -2,8 +2,8 @@
 
 describe('Testing Converter', function () {
 
-  const Converter = require('../../lib/converter');
-  const Units = require('../../lib/units');
+  const Converter = require('../../src/converter');
+  const Units = require('../../src/units');
 
   before(function () {
     Units.registerType('distance', {

@@ -1,7 +1,7 @@
 
 describe('Testing Measure Parser', function () {
 
-  const parser = require('../../../lib/util/measure-parser');
+  const parser = require('../../../src/util/measure-parser');
 
   it('should parse with two arguments', function () {
     parser(2, 'unit').should.deepEqual({ value: 2, unit: 'unit' });
@@ -30,5 +30,5 @@ describe('Testing Measure Parser', function () {
       (function () { parser(2, unit); }).should.throw();
     });
   });
-  
+
 });
