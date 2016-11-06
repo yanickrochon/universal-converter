@@ -8,10 +8,10 @@ module.exports = {
       time: 'time'
     },
     converters: {
-      accelerationAndTime(initialVelocity, acceleration, time) {
+      accelerationAndTime: function (initialVelocity, acceleration, time) {
         return (initialVelocity || 0) + ((acceleration || 0) * time);
       },
-      initialVelocity(velocity, acceleration, time) {
+      initialVelocity: function (velocity, acceleration, time) {
         return (velocity || 0) - ((acceleration || 0) * time);
       }
     }

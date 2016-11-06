@@ -9,7 +9,7 @@ module.exports = {
       time: 'time'
     },
     converters: {
-      velocityOverTime(initialVelocity, velocity, time) {
+      velocityOverTime: function (initialVelocity, velocity, time) {
         return ((velocity || 0) - (initialVelocity || 0)) / time;
       }
     }
