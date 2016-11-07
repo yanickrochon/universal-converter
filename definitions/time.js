@@ -8,11 +8,11 @@ module.exports = {
       distance: 'distance'
     },
     converters: {
-      velocityOverAcceleration: function (initialVelocity, velocity, acceleration) {
-        return ((velocity || 0) - (initialVelocity || 0)) / acceleration;
+      velocityOverAcceleration: function (params) {
+        return ((params.velocity || 0) - (params.initialVelocity || 0)) / params.acceleration;
       },
-      distanceOverVelocity: function (initialVelocity, velocity, distance) {
-        return distance * 2 / ((initialVelocity || 0) + velocity);
+      distanceOverVelocity: function (params) {
+        return params.distance * 2 / ((params.initialVelocity || 0) + params.velocity);
       }
     }
   },

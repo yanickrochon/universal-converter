@@ -35,6 +35,7 @@ module.exports = new class Converter {
             return this;
           },
           to(toUnit) {
+            console.log(typeDef);
             return typeDef.calc(typeDef.convert(converter, params), typeDef.base, toUnit);
           }
         }

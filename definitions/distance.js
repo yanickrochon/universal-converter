@@ -9,14 +9,14 @@ module.exports = {
       time: 'time'
     },
     converters: {
-      squareWidth: function (surface) {
-        return Math.sqrt(surface);
+      squareWidth: function (params) {
+        return Math.sqrt(params.surface);
       },
-      rectangleWidth: function (surface, length) {
-        return surface / length;
+      rectangleWidth: function (params) {
+        return params.surface / params.length;
       },
-      velocityAndTime: function (initialVelocity, velocity, time) {
-        return (initialVelocity + velocity) * time / 2;
+      velocityAndTime: function (params) {
+        return (params.initialVelocity + params.velocity) * params.time / 2;
       }
     }
   },

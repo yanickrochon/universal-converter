@@ -23,14 +23,14 @@ describe('Testing Distance definition', function () {
   });
 
   it('should calculate from conversion', function () {
-    def.conversion.converters.squareWidth(100).should.equal(10);
-    def.conversion.converters.squareWidth(100).should.equal(10 * def.units['meter']);
-    def.conversion.converters.squareWidth(1).should.equal(def.units['meter']);
+    def.conversion.converters.squareWidth({ surface: 100 }).should.equal(10);
+    def.conversion.converters.squareWidth({ surface: 100 }).should.equal(10 * def.units['meter']);
+    def.conversion.converters.squareWidth({ surface: 1 }).should.equal(def.units['meter']);
 
-    def.conversion.converters.rectangleWidth(500, 10).should.equal(50);
+    def.conversion.converters.rectangleWidth({ surface: 500, length: 10 }).should.equal(50);
 
-    def.conversion.converters.velocityAndTime(100, 100, 10).should.equal(1000);
-    def.conversion.converters.velocityAndTime(0, 150, 25).should.equal(1875);
+    def.conversion.converters.velocityAndTime({ initialVelocity: 100, velocity: 100, time: 10 }).should.equal(1000);
+    def.conversion.converters.velocityAndTime({ initialVelocity: 0, velocity: 150, time: 25 }).should.equal(1875);
     // TODO : check more conversions (i.e. validating unit values)
   });
 

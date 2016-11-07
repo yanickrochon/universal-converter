@@ -22,8 +22,8 @@ describe('Testing Velocity definition', function () {
   });
 
   it('should calculate from conversion', function () {
-    def.conversion.converters.accelerationAndTime(0, 5, 20).should.equal(100);
-    def.conversion.converters.initialVelocity(100, 5, 20).should.equal(0);
+    def.conversion.converters.accelerationAndTime({ initialVelocity: 0, acceleration: 5, time: 20 }).should.equal(100);
+    def.conversion.converters.initialVelocity({ velocity: 100, acceleration: 5, time: 20 }).should.equal(0);
     // TODO : check more conversions (i.e. validating unit values)
   });
 

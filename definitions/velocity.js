@@ -8,11 +8,11 @@ module.exports = {
       time: 'time'
     },
     converters: {
-      accelerationAndTime: function (initialVelocity, acceleration, time) {
-        return (initialVelocity || 0) + ((acceleration || 0) * time);
+      accelerationAndTime: function (params) {
+        return (params.initialVelocity || 0) + ((params.acceleration || 0) * params.time);
       },
-      initialVelocity: function (velocity, acceleration, time) {
-        return (velocity || 0) - ((acceleration || 0) * time);
+      initialVelocity: function (params) {
+        return (params.velocity || 0) - ((params.acceleration || 0) * params.time);
       }
     }
   },

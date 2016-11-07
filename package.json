@@ -1,6 +1,6 @@
 {
   "name": "universal-converter",
-  "version": "1.0.7",
+  "version": "1.1.0",
   "description": "Convert just about anything to anything else.",
   "author": "Yanick Rochon <yanick.rochon@gmail.com>",
   "license": "MIT",
@@ -30,9 +30,6 @@
     "math",
     "physics"
   ],
-  "dependencies": {
-    "function-arguments": "^1.0.4"
-  },
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "babel-core": "^6.18.2",

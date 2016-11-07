@@ -1,7 +1,6 @@
 'use strict';
 
 const assert = require('assert');
-const fnArgs = require('function-arguments');
 
 
 /**
@@ -133,9 +132,8 @@ class UnitDefinition {
 
     this.conversion.converters && Object.keys(this.conversion.converters).forEach(converterName => {
       let converterFn = this.conversion.converters[converterName];
-      let converterParams = fnArgs(converterFn);
 
-      assert(this.conversion.params && converterParams.every(param => param in this.conversion.params), 'Paramters not defined for converter : ' + converterName);
+      assert(typeof converterFn === 'function' , 'Converter should be a function : ' + converterName);
     });
   }
 
@@ -221,8 +219,7 @@ class UnitDefinition {
     assert(this.hasConverter(converter), 'Unknown or invalid converter "' + converter + '" in definition : ' + this.name);
 
     const fn = this.conversion.converters[converter]
-    const args = fnArgs(fn).map(arg => Number(params[arg]));
 
-    return fn.apply(this, args);
+    return fn.call(this, params || {});
   }
 }

@@ -23,8 +23,8 @@ describe('Testing Time definition', function () {
   });
 
   it('should calculate from conversion', function () {
-    def.conversion.converters.velocityOverAcceleration(0, 100, 5).should.equal(20);
-    def.conversion.converters.distanceOverVelocity(0, 100, 1300).should.equal(26);
+    def.conversion.converters.velocityOverAcceleration({ initialVelocity: 0, velocity: 100, acceleration: 5 }).should.equal(20);
+    def.conversion.converters.distanceOverVelocity({ initialVelocity: 0, velocity: 100, distance: 1300 }).should.equal(26);
     // TODO : check more conversions (i.e. validating unit values)
   });
 

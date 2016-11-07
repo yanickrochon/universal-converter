@@ -14,11 +14,11 @@ describe('Testing Converter', function () {
           width: 'distance'
         },
         converters: {
-          square(surface) {
-            return Math.sqrt(surface);
+          square(params) {
+            return Math.sqrt(params.surface);
           },
-          rectangle(surface, width) {
-            return surface / width;
+          rectangle(params) {
+            return params.surface / params.width;
           }
         }
       },
@@ -85,7 +85,7 @@ describe('Testing Converter', function () {
 
   });
 
-  describe('Convertint values', function () {
+  describe('Converting values', function () {
 
     it('should convert to', function () {
       Converter.convert( 'distance' ).from( 1, 'km' ).to( 'm' ).should.equal( 1000 );

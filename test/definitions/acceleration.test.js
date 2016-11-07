@@ -20,7 +20,7 @@ describe('Testing Accleration definition', function () {
   });
 
   it('should calculate from conversion', function () {
-    def.conversion.converters.velocityOverTime(0, 100, 20).should.equal(5);
+    def.conversion.converters.velocityOverTime({ initialVelocity: 0, velocity: 100, time: 20 }).should.equal(5);
     // TODO : check more conversions (i.e. validating unit values)
   });
 
