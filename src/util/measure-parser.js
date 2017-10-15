@@ -22,9 +22,9 @@ Returns an object as { value, unit }
 @return {Object}
 */
 module.exports = function parseMeasure(value, unit) {
-  var match;
   if (typeof unit !== 'string' && typeof value === 'string') {
-    if (match = (value + '').match(UNIT_VALUE_REGEXP)) {
+    const match = (value + '').match(UNIT_VALUE_REGEXP);
+    if (match) {
       value = match[1];
       unit = match[2];
     }
@@ -33,5 +33,5 @@ module.exports = function parseMeasure(value, unit) {
   assert(!(isNaN(value) || isNaN(parseFloat(value))), 'Value must be a number : "' + value + '"');
   assert(unit && typeof unit === 'string', 'Empty or invalid unit : "' + unit + '"');
 
-  return { value:value, unit:unit };
+  return { value: value, unit: unit };
 }

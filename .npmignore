@@ -1,4 +1,6 @@
 coverage/
 test/
-src/
+.gitignore
 .travis.yml
+gulp.js
+test.js

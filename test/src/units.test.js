@@ -1,9 +1,8 @@
 'use strict';
 
+describe('Testing Units', () => {
 
-describe('Testing Units', function () {
-
-  const units = require('../../src/units');
+  const Units = require('../../src/units');
 
   const customType = {
     name: 'custom',
@@ -11,9 +10,9 @@ describe('Testing Units', function () {
       params: {
         test: 'strange'
       },
-      converters: [
-        function test(test) { return 1; }
-      ]
+      converters: {
+        identity(test) { return 1; }
+      }
     },
     base: 'unit',
     units: {
@@ -42,65 +41,69 @@ describe('Testing Units', function () {
   const strangeUnits = Object.keys(strangeType.units).concat(Object.keys(strangeType.aliases)).sort();
   const allUnits = customUnits.concat(strangeUnits).sort();
 
-  before('should register', function () {
-    units.types.should.be.empty();
+  beforeEach(() => {
+    expect(Units.types).toEqual([]);
 
-    units.registerType('custom', customType);
-    units.registerType('strange', strangeType);
+    Units.registerType('custom', customType);
+    Units.registerType('strange', strangeType);
 
-    units.types.should.not.be.empty().and.deepEqual(['custom', 'strange']);
+    expect(Units.types).toEqual(['custom', 'strange']);
   });
 
-  it('should return all available units', function () {
-    units.available('custom').sort().should.deepEqual(customUnits);
-    units.available('strange').sort().should.deepEqual(strangeUnits);
-    units.available().sort().should.deepEqual(allUnits);
+  afterEach(() => {
+    Units.unregisterType('custom');
+    Units.unregisterType('strange');
+
+    expect(Units.types).toEqual([]);
   });
 
-  it('should throw when trying to get invalid type', function () {
-    (function () { units.getType('missingType'); }).should.throw(/Invalid unit type/);
+  test('return all available units', () => {
+    expect(Units.available('custom').sort()).toEqual(customUnits);
+    expect(Units.available('strange').sort()).toEqual(strangeUnits);
+    expect(Units.available().sort()).toEqual(allUnits);
   });
 
-  it('should find the type from the unit', function () {
-    units.getUnitTypeName('foo').should.equal('strange');
-    (units.getUnitTypeName('something') === undefined).should.be.true;
+  test('throw when trying to get invalid type', () => {
+    expect(() => Units.getType('missingType')).toThrow(/Invalid unit type/);
   });
 
-  it('should convert to base', function () {
+  test('find the type from the unit', () => {
+    expect(Units.getUnitTypeName('foo')).toBe('strange');
+    expect(Units.getUnitTypeName('something')).toBeUndefined();
+  });
+
+  test('convert to base', () => {
     for (let i = 0; i < 1000; ++i) {
       let v = Math.random() * i;
-      units.getType('strange').calcBase(v, 'foo').should.equal(v);
-      units.getType('strange').calc(v, 'foo', 'foo').should.equal(v);
+      expect(Units.getType('strange').calcBase(v, 'foo')).toBe(v);
+      expect(Units.getType('strange').calc(v, 'foo', 'foo')).toBe(v);
     }
   });
 
-  it('should convert bases', function () {
-    units.getType('strange').calc(1, 'foo', 'bar').should.equal(0.5);
-    units.getType('strange').calc(1, 'bar', 'foo').should.equal(2);
+  test('convert bases', () => {
+    expect(Units.getType('strange').calc(1, 'foo', 'bar')).toBe(0.5);
+    expect(Units.getType('strange').calc(1, 'bar', 'foo')).toBe(2);
   });
 
-  it('should use conversion functions', function () {
-    units.getType('strange').calc(1, 'foo', 'buz').should.equal(30);
-    units.getType('strange').calc(-1, 'foo', 'buz').should.equal(32);
-    units.getType('strange').calc(47, 'foo', 'buz').should.equal(-16);
-    units.getType('strange').calc(-47, 'foo', 'buz').should.equal(78);
+  test('use conversion functions', () => {
+    expect(Units.getType('strange').calc(1, 'foo', 'buz')).toBe(30);
+    expect(Units.getType('strange').calc(-1, 'foo', 'buz')).toBe(32);
+    expect(Units.getType('strange').calc(47, 'foo', 'buz')).toBe(-16);
+    expect(Units.getType('strange').calc(-47, 'foo', 'buz')).toBe(78);
 
-    units.getType('strange').calc(30, 'buz', 'foo').should.equal(1);
-    units.getType('strange').calc(32, 'buz', 'foo').should.equal(-1);
-    units.getType('strange').calc(-16, 'buz', 'foo').should.equal(47);
-    units.getType('strange').calc(78, 'buz', 'foo').should.equal(-47);
+    expect(Units.getType('strange').calc(30, 'buz', 'foo')).toBe(1);
+    expect(Units.getType('strange').calc(32, 'buz', 'foo')).toBe(-1);
+    expect(Units.getType('strange').calc(-16, 'buz', 'foo')).toBe(47);
+    expect(Units.getType('strange').calc(78, 'buz', 'foo')).toBe(-47);
   });
 
-  it('should test compatibility', function () {
-    units.getType('strange').canConvert('custom').should.be.false;
-    units.getType('custom').canConvert('strange').should.be.true;
+  test('test compatibility', () => {
+    expect(Units.getType('strange').canConvert('custom')).toBe(false);
+    expect(Units.getType('custom').canConvert('strange')).toBe(true);
   })
 
-  after('should unregister', function () {
-    units.unregisterType('custom');
-    units.unregisterType('strange');
-
-    units.types.should.be.empty();
+  test('conversion', () => {
+    expect(Units.getType('custom').convert('identity')).toBe(1);
   });
 
 });

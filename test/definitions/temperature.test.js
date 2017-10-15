@@ -1,34 +1,34 @@
+'use strict';
 
-describe('Testing Temperature definition', function () {
+describe('Testing Temperature definition', () => {
 
   const def = require('../../definitions/temperature');
 
-  it('should define base', function () {
-    def.base.should.equal('kelvin');
-    def.units[def.base].should.equal(1);
+  test('define base', () => {
+    expect(def.base).toBe('kelvin');
+    expect(def.units[def.base]).toBe(1);
   });
 
-  it('should define aliases', function () {
-    def.aliases.should.have.property('C').equal('celcius');
-    def.aliases.should.have.property('F').equal('fahrenheit');
-    def.aliases.should.have.property('K').equal('kelvin');
+  test('define aliases', () => {
+    expect(def.aliases).toHaveProperty('C', 'celcius');
+    expect(def.aliases).toHaveProperty('F', 'fahrenheit');
+    expect(def.aliases).toHaveProperty('K', 'kelvin');
   });
 
-  //it('should define conversion params');
+  //test('define conversion params');
 
-  it('should calculate from conversion', function () {
-    def.units['celcius'].toBase(0).should.equal(273.15);
-    def.units['celcius'].fromBase(273.15).should.equal(0);
+  test('calculate from conversion', () => {
+    expect(def.units['celcius'].toBase(0)).toBe(273.15);
+    expect(def.units['celcius'].fromBase(273.15)).toBe(0);
 
-    def.units['fahrenheit'].toBase(0).should.be.approximately(255.37222, 0.0001);
-    def.units['fahrenheit'].fromBase(273.15).should.be.approximately(32, 0.0001);
+    expect(def.units['fahrenheit'].toBase(0)).toBeCloseTo(255.37222, 4);
+    expect(def.units['fahrenheit'].fromBase(273.15)).toBeCloseTo(32, 4);
 
-    def.units['rankine'].toBase(-30).should.be.approximately(-16.6666, 0.0001);
-    def.units['rankine'].fromBase(200).should.be.approximately(360, 0.0001);
+    expect(def.units['rankine'].toBase(-30)).toBeCloseTo(-16.66666, 4);
+    expect(def.units['rankine'].fromBase(200)).toBeCloseTo(360, 4);
 
-    def.units['reaumur'].toBase(-30).should.be.approximately(-242.5199, 0.0001);
-    def.units['reaumur'].fromBase(200).should.be.approximately(523.15, 0.0001);
-
+    expect(def.units['reaumur'].toBase(-30)).toBeCloseTo(-242.51999, 4);
+    expect(def.units['reaumur'].fromBase(200)).toBeCloseTo(523.15, 4);
   });
 
 });

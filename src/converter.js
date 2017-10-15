@@ -1,13 +1,12 @@
 'use strict';
 
 const assert = require('assert');
-const units = require('./units');
+const Units = require('./units');
 const measureParser = require('./util/measure-parser');
 
-
-module.exports = new class Converter {
+module.exports = {
   convert(type) {
-    const typeDef = units.getType(type);
+    const typeDef = Units.getType(type);
 
     return {
       from(fromValue, fromUnit) {
@@ -26,16 +25,33 @@ module.exports = new class Converter {
 
         return {
           with(name, value, unit) {
-            const param = measureParser(value, unit);
-            const paramType = typeDef.conversion.params[name];
-            const paramTypeDef = units.getType(paramType);
+            if (typeof name === 'string') {
+              const param = measureParser(value, unit);
+              const paramType = typeDef.conversion.params[name];
+              const paramTypeDef = Units.getType(paramType);
 
-            params[name] = paramTypeDef.calcBase(param.value, param.unit);
+              params[name] = paramTypeDef.calcBase(param.value, param.unit);
+            } else if (arguments.length === 1) {
+              assert(name && (typeof name === 'object'), 'Invalid argument "' + name + '"');
+
+              const keys = Object.keys(name);
+
+              for (const key of keys) {
+                const value = name[key];
+
+                if (Array.isArray(value)) {
+                  this.with(key, value[0], value[1]);   // we only care for the first two args
+                } else {
+                  this.with(key, value);
+                }
+              }
+            } else {
+              assert.fail('Invalid arguments given');
+            }
 
             return this;
           },
           to(toUnit) {
-            console.log(typeDef);
             return typeDef.calc(typeDef.convert(converter, params), typeDef.base, toUnit);
           }
         }
@@ -45,4 +61,4 @@ module.exports = new class Converter {
       }
     };
   }
-}
+};

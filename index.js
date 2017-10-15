@@ -1,34 +1,34 @@
-const Converter = require('./lib/converter');
-const units = require('./lib/units');
+const Converter = require('./src/converter');
+const Units = require('./src/units');
 
+// register all known unit types
+Units.registerType('acceleration', require('./definitions/acceleration'));
+Units.registerType('angle', require('./definitions/angle'));
+Units.registerType('area', require('./definitions/area'));
+Units.registerType('binary', require('./definitions/binary'));
+Units.registerType('density', require('./definitions/density'));
+Units.registerType('distance', require('./definitions/distance'));
+Units.registerType('electric.capacitance', require('./definitions/electric.capacitance'));
+Units.registerType('electric.current', require('./definitions/electric.current'));
+Units.registerType('energy', require('./definitions/energy'));
+Units.registerType('flow.rate.mole', require('./definitions/flow.rate.mole'));
+Units.registerType('flow.rate.volume', require('./definitions/flow.rate.volume'));
+Units.registerType('force', require('./definitions/force'));
+Units.registerType('frequency', require('./definitions/frequency'));
+Units.registerType('illuminance', require('./definitions/illuminance'));
+Units.registerType('luminance', require('./definitions/luminance'));
+Units.registerType('mass', require('./definitions/mass'));
+Units.registerType('power', require('./definitions/power'));
+Units.registerType('pressure', require('./definitions/pressure'));
+Units.registerType('temperature', require('./definitions/temperature'));
+Units.registerType('time', require('./definitions/time'));
+Units.registerType('torque', require('./definitions/torque'));
+Units.registerType('velocity', require('./definitions/velocity'));
+Units.registerType('viscosity.dynamic', require('./definitions/viscosity.dynamic'));
+Units.registerType('viscosity.dynamic.oil-water', require('./definitions/viscosity.dynamic.oil-water'));
+Units.registerType('viscosity.kinematic', require('./definitions/viscosity.kinematic'));
+Units.registerType('volume', require('./definitions/volume'));
 
 module.exports = Converter
 module.exports.Converter = Converter;
-module.exports.units = units;
-
-units.registerType('acceleration', require('./definitions/acceleration'));
-units.registerType('angle', require('./definitions/angle'));
-units.registerType('area', require('./definitions/area'));
-units.registerType('binary', require('./definitions/binary'));
-units.registerType('density', require('./definitions/density'));
-units.registerType('distance', require('./definitions/distance'));
-units.registerType('electric.capacitance', require('./definitions/electric.capacitance'));
-units.registerType('electric.current', require('./definitions/electric.current'));
-units.registerType('energy', require('./definitions/energy'));
-units.registerType('flow.rate.mole', require('./definitions/flow.rate.mole'));
-units.registerType('flow.rate.volume', require('./definitions/flow.rate.volume'));
-units.registerType('force', require('./definitions/force'));
-units.registerType('frequency', require('./definitions/frequency'));
-units.registerType('illuminance', require('./definitions/illuminance'));
-units.registerType('luminance', require('./definitions/luminance'));
-units.registerType('mass', require('./definitions/mass'));
-units.registerType('power', require('./definitions/power'));
-units.registerType('pressure', require('./definitions/pressure'));
-units.registerType('temperature', require('./definitions/temperature'));
-units.registerType('time', require('./definitions/time'));
-units.registerType('torque', require('./definitions/torque'));
-units.registerType('velocity', require('./definitions/velocity'));
-units.registerType('viscosity.dynamic', require('./definitions/viscosity.dynamic'));
-units.registerType('viscosity.dynamic.oil-water', require('./definitions/viscosity.dynamic.oil-water'));
-units.registerType('viscosity.kinematic', require('./definitions/viscosity.kinematic'));
-units.registerType('volume', require('./definitions/volume'));
+module.exports.Units = Units;

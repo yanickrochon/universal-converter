@@ -9,13 +9,13 @@ module.exports = {
       time: 'time'
     },
     converters: {
-      squareWidth: function (params) {
+      squareWidth(params) {
         return Math.sqrt(params.surface);
       },
-      rectangleWidth: function (params) {
+      rectangleWidth(params) {
         return params.surface / params.length;
       },
-      velocityAndTime: function (params) {
+      velocityAndTime(params) {
         return (params.initialVelocity + params.velocity) * params.time / 2;
       }
     }

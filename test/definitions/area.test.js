@@ -1,27 +1,28 @@
+'use strict';
 
-describe('Testing Area definition', function () {
+describe('Testing Area definition', () => {
 
   const def = require('../../definitions/area');
 
-  it('should define base', function () {
-    def.base.should.equal('square meter');
-    def.units[def.base].should.equal(1);
+  test('define base', () => {
+    expect(def.base).toBe('square meter');
+    expect(def.units[def.base]).toBe(1);
   });
 
-  it('should define aliases', function () {
-    def.aliases.should.have.property('yard').equal('square yard');
+  test('define aliases', () => {
+    expect(def.aliases).toHaveProperty('yard', 'square yard');
     // TODO : check more aliases
   });
 
-  it('should define conversion params', function () {
-    def.conversion.params.should.have.property('width').equal('distance');
-    def.conversion.params.should.have.property('length').equal('distance');
+  test('define conversion params', () => {
+    expect(def.conversion.params).toHaveProperty('width', 'distance');
+    expect(def.conversion.params).toHaveProperty('length', 'distance');
   });
 
-  it('should calculate from conversion', function () {
-    def.conversion.converters.squareArea({ width: 10 }).should.equal(100);
-    def.conversion.converters.squareArea({ width: 1000 }).should.equal(def.units['square kilometer']);
-    def.conversion.converters.rectangleArea({ width: 10, length: 50 }).should.equal(500);
+  test('calculate from conversion', () => {
+    expect(def.conversion.converters.squareArea({ width: 10 })).toBe(100);
+    expect(def.conversion.converters.squareArea({ width: 1000 })).toBe(def.units['square kilometer']);
+    expect(def.conversion.converters.rectangleArea({ width: 10, length: 50 })).toBe(500);
 
     // TODO : check more conversions (i.e. validating unit values)
   });

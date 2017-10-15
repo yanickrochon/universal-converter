@@ -8,10 +8,10 @@ module.exports = {
       distance: 'distance'
     },
     converters: {
-      velocityOverAcceleration: function (params) {
+      velocityOverAcceleration(params) {
         return ((params.velocity || 0) - (params.initialVelocity || 0)) / params.acceleration;
       },
-      distanceOverVelocity: function (params) {
+      distanceOverVelocity(params) {
         return params.distance * 2 / ((params.initialVelocity || 0) + params.velocity);
       }
     }

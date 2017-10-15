@@ -1,27 +1,31 @@
+'use strict';
 
-describe('Testing Accleration definition', function () {
+describe('Testing Accleration definition', () => {
 
   const def = require('../../definitions/acceleration');
 
-  it('should define base', function () {
-    def.base.should.equal('meter/square second');
-    def.units[def.base].should.equal(1);
+  test('define base', () => {
+    expect(def.base).toBe('meter/square second');
+    expect(def.units[def.base]).toBe(1);
   });
 
-  it('should define aliases', function () {
-    def.aliases.should.have.property('G').equal('g-unit');
+  test('define aliases', () => {
+    expect(def.aliases).toHaveProperty('G', 'g-unit');
     // TODO : check more aliases
   });
 
-  it('should define conversion params', function () {
-    def.conversion.params.should.have.property('initialVelocity').equal('velocity');
-    def.conversion.params.should.have.property('velocity').equal('velocity');
-    def.conversion.params.should.have.property('time').equal('time');
+  test('define conversion params', () => {
+    expect(def.conversion.params).toHaveProperty('initialVelocity', 'velocity');
+    expect(def.conversion.params).toHaveProperty('velocity', 'velocity');
+    expect(def.conversion.params).toHaveProperty('time', 'time');
   });
 
-  it('should calculate from conversion', function () {
-    def.conversion.converters.velocityOverTime({ initialVelocity: 0, velocity: 100, time: 20 }).should.equal(5);
-    // TODO : check more conversions (i.e. validating unit values)
+  test('calculate from conversion', () => {
+    expect(def.conversion.converters.velocityOverTime({ initialVelocity: 0, velocity: 100, time: 20 })).toBe(5);
+  });
+
+  test('calculate velocityOverTime with default params', () => {
+    expect(def.conversion.converters.velocityOverTime({ time: 20 })).toBe(0);
   });
 
 });

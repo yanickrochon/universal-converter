@@ -1,11 +1,11 @@
 'use strict';
 
-describe('Testing Converter', function () {
+describe('Testing Converter', () => {
 
   const Converter = require('../../src/converter');
   const Units = require('../../src/units');
 
-  before(function () {
+  beforeEach(() => {
     Units.registerType('distance', {
       name: 'distance',
       conversion: {
@@ -44,7 +44,7 @@ describe('Testing Converter', function () {
     });
     Units.registerType('area', {
       name: 'area',
-      cconversion: {
+      conversion: {
         params: {
           width: 'distance',
           length: 'distance'
@@ -70,30 +70,38 @@ describe('Testing Converter', function () {
     });
   });
 
-  after(function () {
+  afterEach(() => {
     Units.unregisterType('distance');
     Units.unregisterType('area');
   });
 
 
-  describe('Validate possible conversions', function () {
+  describe('Validate possible conversions', () => {
 
-    it('should validate distance to area', function () {
-      Converter.convert( 'area' ).isCompatible('distance').should.be.true;
-      Converter.convert( 'area' ).isCompatible('velocity').should.be.false;
+    test('validate distance to area', () => {
+      expect(Converter.convert('area').isCompatible('distance')).toBe(true);
+      expect(Converter.convert('area').isCompatible('velocity')).toBe(false);
     });
 
   });
 
-  describe('Converting values', function () {
+  describe('Converting values', () => {
 
-    it('should convert to', function () {
-      Converter.convert( 'distance' ).from( 1, 'km' ).to( 'm' ).should.equal( 1000 );
-      Converter.convert( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 1000, 'meter' ).to( 'km' ).should.be.approximately( 2, 0.001 );
-      Converter.convert( 'distance' ).using( 'rectangle' ).with( 'surface', 2, 'square kilometer' ).with( 'width', 700, 'yard' ).to( 'yard' ).should.be.approximately( 3417.1144, 0.001 );
+    test('convert to', () => {
+      expect(Converter.convert('distance').from( 1, 'km' ).to( 'm' )).toBe( 1000 );
+      expect(Converter.convert('distance').using('rectangle').with( 'surface', 2, 'square kilometer' ).with( 'width', 1000, 'meter' ).to( 'km' )).toBeCloseTo( 2, 3 );
+      expect(Converter.convert('distance').using('rectangle').with( 'surface', 2, 'square kilometer' ).with( 'width', 700, 'yard' ).to( 'yard' )).toBeCloseTo( 3417.1144, 3 );
+    });
+
+    test('convert to (using batch)', () => {
+      expect(Converter.convert('distance').using('rectangle').with({ 'surface': [2, 'square kilometer'], 'width': '1000 meter' }).to( 'km' )).toBeCloseTo( 2, 3 );
+      expect(Converter.convert('distance').using('rectangle').with({ 'surface': '2 square kilometer', 'width': [700, 'yard'] }).to( 'yard' )).toBeCloseTo( 3417.1144, 3 );
+    });
+
+    test('convert to (using batch) fail', () => {
+      expect(() => Converter.convert('distance').using('rectangle').with({ 'surface': '2 square kilometer' }, 'invalid')).toThrow('Invalid arguments given');
     });
 
   });
-
 
 });

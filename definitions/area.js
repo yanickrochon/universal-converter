@@ -6,10 +6,10 @@ module.exports = {
       length: 'distance'
     },
     converters: {
-      squareArea: function (params) {
+      squareArea(params) {
         return params.width * params.width;
       },
-      rectangleArea: function (params) {
+      rectangleArea(params) {
         return params.width * params.length;
       }
     }

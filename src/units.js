@@ -10,10 +10,9 @@ Unit definition cache.
 const unitCache = {};
 
 /**
-Expose an instance of Units, a class to register and retrieve
-unit definitions
+Register and retrive registered unit definitions
 */
-const Units = module.exports = new class Units {
+const Units = {
 
   /**
   Register a new type definition.
@@ -32,21 +31,23 @@ const Units = module.exports = new class Units {
   See : UnitDefinition for more information.
 
   @param type {string}
-  @param data {object}
+  @param data {object}
   */
   registerType(type, def) {
-    // TODO : validate type
+    assert(typeof type === 'string' && type.length, 'Invalid type');
+
     unitCache[type] = new UnitDefinition(def);
-  }
+  },
 
   /**
   Unregister a unit type
   @param type {string}
   */
   unregisterType(type) {
-    // TODO : validate type
+    assert(typeof type === 'string' && type.length, 'Invalid type');
+
     delete unitCache[type];
-  }
+  },
 
 
   /**
@@ -57,20 +58,20 @@ const Units = module.exports = new class Units {
   */
   available(type) {
     if (type) {
-      let def = this.getType(type);
-      let units = Object.keys(def.aliases);
+      const def = this.getType(type);
+      const units = Object.keys(def.aliases);
 
       units.push.apply(units, Object.keys(def.units));
 
       return units.sort();
     } else {
       return this.types.reduce((units, type) => {
-        let def = this.getType(type);
+        const def = this.getType(type);
         units.push.apply(units, Object.keys(def.aliases).concat(Object.keys(def.units)));
         return units;
       }, []).sort();
     }
-  }
+  },
 
   /**
   Return all available types
@@ -78,7 +79,7 @@ const Units = module.exports = new class Units {
   */
   get types() {
     return Object.keys(unitCache).sort();
-  }
+  },
 
   /**
   Return the unit type
@@ -89,7 +90,7 @@ const Units = module.exports = new class Units {
       throw new TypeError('Invalid unit type : ' + type);
     }
     return unitCache[type];
-  }
+  },
 
   /**
   Return the first type definition name found for the given unit
@@ -97,14 +98,14 @@ const Units = module.exports = new class Units {
   @return {string}
   */
   getUnitTypeName(unit) {
-    return Object.keys(unitCache).find(function (type) {
+    return Object.keys(unitCache).find(type => {
       const typeDef = unitCache[type];
 
       return (unit in typeDef.units || unit in typeDef.aliases);
     });
   }
 
-}
+};
 
 
 /**
@@ -123,18 +124,20 @@ class UnitDefinition {
     this.aliases = data.aliases || {};
     this.conversion = data.conversion || {};
 
-    assert(this.base in this.units, 'Invalid base "' + this.base +'" in definition : ' + this.name);
+    assert(this.base in this.units, 'Invalid base "' + this.base + '" in definition : ' + this.name);
 
-    Object.keys(this.aliases).every(alias => {
+    Object.keys(this.aliases).forEach(alias => {
       assert(typeof this.aliases[alias] === 'string', 'Invalid alias value for "' + alias + '" in definition : ' + this.name);
       assert(this.aliases[alias] in this.units, 'Invalid alias "' + alias + '" = "' + this.aliases[alias] + '" in definition : ' + this.name);
     });
 
-    this.conversion.converters && Object.keys(this.conversion.converters).forEach(converterName => {
-      let converterFn = this.conversion.converters[converterName];
+    if (this.conversion.converters) {
+      Object.keys(this.conversion.converters).forEach(converterName => {
+        const converterFn = this.conversion.converters[converterName];
 
-      assert(typeof converterFn === 'function' , 'Converter should be a function : ' + converterName);
-    });
+        assert(typeof converterFn === 'function', 'Converter should be a function : ' + converterName);
+      });
+    }
   }
 
   /**
@@ -194,9 +197,7 @@ class UnitDefinition {
   @return {boolean}
   */
   canConvert(type) {
-    return !!(this.conversion.params && Object.keys(this.conversion.params).some(param => {
-      return this.conversion.params[param] === type;
-    }));
+    return !!(this.conversion.params && Object.keys(this.conversion.params).some(param => this.conversion.params[param] === type));
   }
 
   /**
@@ -223,3 +224,9 @@ class UnitDefinition {
     return fn.call(this, params || {});
   }
 }
+
+
+/**
+Expose a singleton instance of Units, a class to register and retrieve unit definitions
+*/
+module.exports = Units;

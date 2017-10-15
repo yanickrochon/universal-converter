@@ -1,36 +1,37 @@
+'use strict';
 
 describe('Testing Distance definition', function () {
 
   const def = require('../../definitions/distance');
 
-  it('should define base', function () {
-    def.base.should.equal('meter');
-    def.units[def.base].should.equal(1);
+  test('define base', () => {
+    expect(def.base).toBe('meter');
+    expect(def.units[def.base]).toBe(1);
   });
 
-  it('should define aliases', function () {
-    def.aliases.should.have.property('m').equal('meter');
-    def.aliases.should.have.property('km').equal('kilometer');
+  test('define aliases', () => {
+    expect(def.aliases).toHaveProperty('m', 'meter');
+    expect(def.aliases).toHaveProperty('km', 'kilometer');
     // TODO : check more aliases
   });
 
-  it('should define conversion params', function () {
-    def.conversion.params.should.have.property('surface').equal('area');
-    def.conversion.params.should.have.property('length').equal('distance');
-    def.conversion.params.should.have.property('initialVelocity').equal('velocity');
-    def.conversion.params.should.have.property('velocity').equal('velocity');
-    def.conversion.params.should.have.property('time').equal('time');
+  test('define conversion params', () => {
+    expect(def.conversion.params).toHaveProperty('surface', 'area');
+    expect(def.conversion.params).toHaveProperty('length', 'distance');
+    expect(def.conversion.params).toHaveProperty('initialVelocity', 'velocity');
+    expect(def.conversion.params).toHaveProperty('velocity', 'velocity');
+    expect(def.conversion.params).toHaveProperty('time', 'time');
   });
 
-  it('should calculate from conversion', function () {
-    def.conversion.converters.squareWidth({ surface: 100 }).should.equal(10);
-    def.conversion.converters.squareWidth({ surface: 100 }).should.equal(10 * def.units['meter']);
-    def.conversion.converters.squareWidth({ surface: 1 }).should.equal(def.units['meter']);
+  test('calculate from conversion', () => {
+    expect(def.conversion.converters.squareWidth({ surface: 100 })).toBe(10);
+    expect(def.conversion.converters.squareWidth({ surface: 100 })).toBe(10 * def.units['meter']);
+    expect(def.conversion.converters.squareWidth({ surface: 1 })).toBe(def.units['meter']);
 
-    def.conversion.converters.rectangleWidth({ surface: 500, length: 10 }).should.equal(50);
+    expect(def.conversion.converters.rectangleWidth({ surface: 500, length: 10 })).toBe(50);
 
-    def.conversion.converters.velocityAndTime({ initialVelocity: 100, velocity: 100, time: 10 }).should.equal(1000);
-    def.conversion.converters.velocityAndTime({ initialVelocity: 0, velocity: 150, time: 25 }).should.equal(1875);
+    expect(def.conversion.converters.velocityAndTime({ initialVelocity: 100, velocity: 100, time: 10 })).toBe(1000);
+    expect(def.conversion.converters.velocityAndTime({ initialVelocity: 0, velocity: 150, time: 25 })).toBe(1875);
     // TODO : check more conversions (i.e. validating unit values)
   });
 

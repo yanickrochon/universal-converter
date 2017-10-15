@@ -38,19 +38,19 @@ Converter.convert('speed').from('100 kph').to('mph');   // 100 km/h = ? mp/h
 Converter.convert('area')
   .using('squareArea')
   .with( 'width', 100, 'inch' )
-  .to('square foot') + ' ft';    // 100 in * 100 in = ? ft²
+  .to('square foot') + ' ft²';    // 100 in * 100 in = ? ft²
 // -> "69.44444444444444 ft²"
 Converter.convert('area')
   .using('rectangleArea')
   .with('width', ' 60 inch')
   .with('length', '84 feet')
-  .to('square meter') + ' m¹';   // 60 in * 84 ft = ? m²
+  .to('square meter') + ' m²';   // 60 in * 84 ft = ? m²
 // -> "39.01927680000001 m¹"
 Converter.convert('distance')
-  .using('rectangleLength')
-  .with('area', 39.01927680000001, 'square meter')
+  .using('rectangleWidth')
+  .with('surface', 39.01927680000001, 'square meter')
   .with('width', '84 feet')
-  .to('inch') + ' in';  // m² / 84 ft = ? in
+  .to('inch') + ' in';  // 39.01927680000001 m² / 84 ft = ? in
 // -> "60.00000000000001 in"
 
 /** Check possible conversions **/

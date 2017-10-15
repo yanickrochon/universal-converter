@@ -1,33 +1,34 @@
+'use strict';
 
-describe('Testing Measure Parser', function () {
+describe('Testing Measure Parser', () => {
 
   const parser = require('../../../src/util/measure-parser');
 
-  it('should parse with two arguments', function () {
-    parser(2, 'unit').should.deepEqual({ value: 2, unit: 'unit' });
-    parser('2', 'unit').should.deepEqual({ value: '2', unit: 'unit' });
+  test('parse with two arguments', () => {
+    expect(parser(2, 'unit')).toEqual({ value: 2, unit: 'unit' });
+    expect(parser('2', 'unit')).toEqual({ value: '2', unit: 'unit' });
   });
 
-  it('should parse with single argument', function () {
-    parser('2 unit').should.deepEqual({ value: '2', unit: 'unit' });
-    parser('2 unit', null).should.deepEqual({ value: '2', unit: 'unit' });
-    parser('2 unit', false).should.deepEqual({ value: '2', unit: 'unit' });
+  test('parse with single argument', () => {
+    expect(parser('2 unit')).toEqual({ value: '2', unit: 'unit' });
+    expect(parser('2 unit', null)).toEqual({ value: '2', unit: 'unit' });
+    expect(parser('2 unit', false)).toEqual({ value: '2', unit: 'unit' });
   });
 
-  it('should fail with invalid value', function () {
+  test('fail with invalid value', () => {
     [
       '2 unit', NaN, true, false, null, ''
     ].forEach(value => {
-      (function () { parser(value, 'unit'); }).should.throw();
+      expect(() => parser(value, 'unit')).toThrow();
     });
   });
 
-  it('should fail with invalid unit', function () {
+  test('fail with invalid unit', () => {
     [
       NaN, true, false, null, ''
     ].forEach(unit => {
-      (function () { parser('2', unit); }).should.throw();
-      (function () { parser(2, unit); }).should.throw();
+      expect(() => parser('2', unit)).toThrow();
+      expect(() => parser(2, unit)).toThrow();
     });
   });
 
