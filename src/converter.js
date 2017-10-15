@@ -5,8 +5,8 @@ const Units = require('./units');
 const measureParser = require('./util/measure-parser');
 
 module.exports = {
-  convert(type) {
-    const typeDef = Units.getType(type);
+  convert(typeName) {
+    const typeDef = Units.get(typeName);
 
     return {
       from(fromValue, fromUnit) {
@@ -19,7 +19,7 @@ module.exports = {
         }
       },
       using(converter) {
-        assert(typeDef.hasConverter(converter), 'Unknown conversion function "' + converter + '" found for type definition "' + type + '"');
+        assert(typeDef.hasConverter(converter), 'Unknown conversion function "' + converter + '" found for type definition "' + typeName + '"');
 
         const params = {};
 
@@ -27,8 +27,8 @@ module.exports = {
           with(name, value, unit) {
             if (typeof name === 'string') {
               const param = measureParser(value, unit);
-              const paramType = typeDef.conversion.params[name];
-              const paramTypeDef = Units.getType(paramType);
+              const paramTypeName = typeDef.conversion.params[name];
+              const paramTypeDef = Units.get(paramTypeName);
 
               params[name] = paramTypeDef.calcBase(param.value, param.unit);
             } else if (arguments.length === 1) {

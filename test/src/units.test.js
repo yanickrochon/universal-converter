@@ -44,15 +44,15 @@ describe('Testing Units', () => {
   beforeEach(() => {
     expect(Units.types).toEqual([]);
 
-    Units.registerType('custom', customType);
-    Units.registerType('strange', strangeType);
+    Units.register(customType);
+    Units.register(strangeType);
 
     expect(Units.types).toEqual(['custom', 'strange']);
   });
 
   afterEach(() => {
-    Units.unregisterType('custom');
-    Units.unregisterType('strange');
+    Units.unregister('custom');
+    Units.unregister('strange');
 
     expect(Units.types).toEqual([]);
   });
@@ -64,7 +64,7 @@ describe('Testing Units', () => {
   });
 
   test('throw when trying to get invalid type', () => {
-    expect(() => Units.getType('missingType')).toThrow(/Invalid unit type/);
+    expect(() => Units.get('missingType')).toThrow(/Invalid unit type/);
   });
 
   test('find the type from the unit', () => {
@@ -75,35 +75,35 @@ describe('Testing Units', () => {
   test('convert to base', () => {
     for (let i = 0; i < 1000; ++i) {
       let v = Math.random() * i;
-      expect(Units.getType('strange').calcBase(v, 'foo')).toBe(v);
-      expect(Units.getType('strange').calc(v, 'foo', 'foo')).toBe(v);
+      expect(Units.get('strange').calcBase(v, 'foo')).toBe(v);
+      expect(Units.get('strange').calc(v, 'foo', 'foo')).toBe(v);
     }
   });
 
   test('convert bases', () => {
-    expect(Units.getType('strange').calc(1, 'foo', 'bar')).toBe(0.5);
-    expect(Units.getType('strange').calc(1, 'bar', 'foo')).toBe(2);
+    expect(Units.get('strange').calc(1, 'foo', 'bar')).toBe(0.5);
+    expect(Units.get('strange').calc(1, 'bar', 'foo')).toBe(2);
   });
 
   test('use conversion functions', () => {
-    expect(Units.getType('strange').calc(1, 'foo', 'buz')).toBe(30);
-    expect(Units.getType('strange').calc(-1, 'foo', 'buz')).toBe(32);
-    expect(Units.getType('strange').calc(47, 'foo', 'buz')).toBe(-16);
-    expect(Units.getType('strange').calc(-47, 'foo', 'buz')).toBe(78);
+    expect(Units.get('strange').calc(1, 'foo', 'buz')).toBe(30);
+    expect(Units.get('strange').calc(-1, 'foo', 'buz')).toBe(32);
+    expect(Units.get('strange').calc(47, 'foo', 'buz')).toBe(-16);
+    expect(Units.get('strange').calc(-47, 'foo', 'buz')).toBe(78);
 
-    expect(Units.getType('strange').calc(30, 'buz', 'foo')).toBe(1);
-    expect(Units.getType('strange').calc(32, 'buz', 'foo')).toBe(-1);
-    expect(Units.getType('strange').calc(-16, 'buz', 'foo')).toBe(47);
-    expect(Units.getType('strange').calc(78, 'buz', 'foo')).toBe(-47);
+    expect(Units.get('strange').calc(30, 'buz', 'foo')).toBe(1);
+    expect(Units.get('strange').calc(32, 'buz', 'foo')).toBe(-1);
+    expect(Units.get('strange').calc(-16, 'buz', 'foo')).toBe(47);
+    expect(Units.get('strange').calc(78, 'buz', 'foo')).toBe(-47);
   });
 
   test('test compatibility', () => {
-    expect(Units.getType('strange').canConvert('custom')).toBe(false);
-    expect(Units.getType('custom').canConvert('strange')).toBe(true);
+    expect(Units.get('strange').canConvert('custom')).toBe(false);
+    expect(Units.get('custom').canConvert('strange')).toBe(true);
   })
 
   test('conversion', () => {
-    expect(Units.getType('custom').convert('identity')).toBe(1);
+    expect(Units.get('custom').convert('identity')).toBe(1);
   });
 
 });

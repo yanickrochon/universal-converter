@@ -67,7 +67,9 @@ Converter.convert( type : String )
     .from( value : Number, unit : String ) | .from( valueAndUnit : String )
       .to( unit : String ) : Number
     .using( fnName : String )
-      .with( paramName : String, value : Number, unit : String ) | .with( paramName : String, valueAndUnit : String ) : [Circular]
+      .with( paramName : String, value : Number, unit : String ) : [Circular]
+      .with( paramName : String, valueAndUnit : String ) : [Circular]
+      .with( params : Object ) : [Circular]
       .to( unit : String ) : Number
     .isCompatible( type : String ) : Boolean
 ```

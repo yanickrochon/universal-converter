@@ -30,23 +30,22 @@ const Units = {
 
   See : UnitDefinition for more information.
 
-  @param type {string}
   @param data {object}
   */
-  registerType(type, def) {
-    assert(typeof type === 'string' && type.length, 'Invalid type');
+  register(def) {
+    const typeDef = new UnitDefinition(def);
 
-    unitCache[type] = new UnitDefinition(def);
+    unitCache[typeDef.name] = typeDef;
   },
 
   /**
   Unregister a unit type
   @param type {string}
   */
-  unregisterType(type) {
-    assert(typeof type === 'string' && type.length, 'Invalid type');
+  unregister(typeName) {
+    assert(typeof typeName === 'string' && typeName.length, 'Invalid type');
 
-    delete unitCache[type];
+    delete unitCache[typeName];
   },
 
 
@@ -56,18 +55,18 @@ const Units = {
   @param type {string} (optional)
   @return {Array}
   */
-  available(type) {
-    if (type) {
-      const def = this.getType(type);
-      const units = Object.keys(def.aliases);
+  available(typeName) {
+    if (typeName) {
+      const typeDef = this.get(typeName);
+      const units = Object.keys(typeDef.aliases);
 
-      units.push.apply(units, Object.keys(def.units));
+      units.push.apply(units, Object.keys(typeDef.units));
 
       return units.sort();
     } else {
-      return this.types.reduce((units, type) => {
-        const def = this.getType(type);
-        units.push.apply(units, Object.keys(def.aliases).concat(Object.keys(def.units)));
+      return this.types.reduce((units, typeName) => {
+        const typeDef = this.get(typeName);
+        units.push.apply(units, Object.keys(typeDef.aliases).concat(Object.keys(typeDef.units)));
         return units;
       }, []).sort();
     }
@@ -83,13 +82,14 @@ const Units = {
 
   /**
   Return the unit type
+  @param typeName {String}
   @return {object}
   */
-  getType(type) {
-    if (!(type in unitCache)) {
-      throw new TypeError('Invalid unit type : ' + type);
+  get(typeName) {
+    if (!(typeName in unitCache)) {
+      throw new TypeError('Invalid unit type name : ' + typeName);
     }
-    return unitCache[type];
+    return unitCache[typeName];
   },
 
   /**
@@ -98,8 +98,8 @@ const Units = {
   @return {string}
   */
   getUnitTypeName(unit) {
-    return Object.keys(unitCache).find(type => {
-      const typeDef = unitCache[type];
+    return Object.keys(unitCache).find(typeName => {
+      const typeDef = unitCache[typeName];
 
       return (unit in typeDef.units || unit in typeDef.aliases);
     });

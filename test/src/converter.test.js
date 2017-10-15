@@ -6,7 +6,7 @@ describe('Testing Converter', () => {
   const Units = require('../../src/units');
 
   beforeEach(() => {
-    Units.registerType('distance', {
+    Units.register({
       name: 'distance',
       conversion: {
         params: {
@@ -42,7 +42,7 @@ describe('Testing Converter', () => {
         'yard': 0.9144
       }
     });
-    Units.registerType('area', {
+    Units.register({
       name: 'area',
       conversion: {
         params: {
@@ -71,8 +71,8 @@ describe('Testing Converter', () => {
   });
 
   afterEach(() => {
-    Units.unregisterType('distance');
-    Units.unregisterType('area');
+    Units.unregister('distance');
+    Units.unregister('area');
   });
 
 
