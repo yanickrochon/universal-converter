@@ -1,6 +1,7 @@
 coverage/
 test/
+.babelrc
+.eslintrc.json
 .gitignore
 .travis.yml
 gulp.js
-test.js
