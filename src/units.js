@@ -1,6 +1,4 @@
-'use strict';
-
-const assert = require('assert');
+const assert = require('./util/assert');
 
 
 /**

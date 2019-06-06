@@ -1,8 +1,7 @@
-'use strict';
-
-const assert = require('assert');
 const Units = require('./units');
 const measureParser = require('./util/measure-parser');
+const assert = require('./util/assert');
+
 
 module.exports = {
   convert(typeName) {
@@ -46,7 +45,7 @@ module.exports = {
                 }
               }
             } else {
-              assert.fail('Invalid arguments given');
+              assert(false, 'Invalid arguments given');
             }
 
             return this;

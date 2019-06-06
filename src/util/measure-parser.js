@@ -1,7 +1,7 @@
 
 const UNIT_VALUE_REGEXP = /(-?\d+(?:\.\d+)?)\s(.+)$/;
 
-const assert = require('assert');
+const assert = require('./assert');
 
 /**
 If value is a string, parse the value and unit.
