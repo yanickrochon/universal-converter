@@ -1,9 +1,9 @@
-const Units = require('./units');
-const measureParser = require('./util/measure-parser');
-const assert = require('./util/assert');
+import Units from './units';
+import measureParser from './util/measure-parser';
+import assert from './util/assert';
 
 
-module.exports = {
+export default {
   convert(typeName) {
     const typeDef = Units.get(typeName);
 

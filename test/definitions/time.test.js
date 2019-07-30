@@ -1,8 +1,6 @@
-'use strict';
+import def from '../../src/definitions/time';
 
 describe('Testing Time definition', () => {
-
-  const def = require('../../definitions/time');
 
   test('define base', () => {
     expect(def.base).toBe('second');
@@ -31,4 +29,5 @@ describe('Testing Time definition', () => {
   test('calculate velocityOverAcceleration with default params', () => {
     expect(def.conversion.converters.velocityOverAcceleration({ acceleration: 5 })).toBe(0);
   });
+
 });

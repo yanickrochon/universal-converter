@@ -1,0 +1,7 @@
+{
+  "build/umd/universal-converter.min.js": {
+    "bundled": 127011,
+    "minified": 86748,
+    "gzipped": 22832
+  }
+}

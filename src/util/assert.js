@@ -1,4 +1,4 @@
-module.exports = function assert(cond, msg) {
+export default (cond, msg) => {
    if (!cond) {
       throw new Error(msg);
    }

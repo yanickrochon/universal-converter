@@ -1,7 +1,6 @@
+import assert from './assert';
 
 const UNIT_VALUE_REGEXP = /(-?\d+(?:\.\d+)?)\s(.+)$/;
-
-const assert = require('./assert');
 
 /**
 If value is a string, parse the value and unit.
@@ -21,7 +20,7 @@ Returns an object as { value, unit }
 @param unit {String}
 @return {Object}
 */
-module.exports = function parseMeasure(value, unit) {
+export default (value, unit) => {
   if (typeof unit !== 'string' && typeof value === 'string') {
     const match = (value + '').match(UNIT_VALUE_REGEXP);
     if (match) {
@@ -33,5 +32,5 @@ module.exports = function parseMeasure(value, unit) {
   assert(!(isNaN(value) || isNaN(parseFloat(value))), 'Value must be a number : "' + value + '"');
   assert(unit && typeof unit === 'string', 'Empty or invalid unit : "' + unit + '"');
 
-  return { value: value, unit: unit };
-}
+  return { value, unit };
+};

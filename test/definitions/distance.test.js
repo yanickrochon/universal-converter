@@ -1,8 +1,6 @@
-'use strict';
+import def from '../../src/definitions/distance';
 
 describe('Testing Distance definition', function () {
-
-  const def = require('../../definitions/distance');
 
   test('define base', () => {
     expect(def.base).toBe('meter');

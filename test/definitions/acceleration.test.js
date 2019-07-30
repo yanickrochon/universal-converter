@@ -1,8 +1,7 @@
-'use strict';
+import def from '../../src/definitions/acceleration';
+
 
 describe('Testing Accleration definition', () => {
-
-  const def = require('../../definitions/acceleration');
 
   test('define base', () => {
     expect(def.base).toBe('meter/square second');

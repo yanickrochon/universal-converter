@@ -1,8 +1,6 @@
-'use strict';
+import def from '../../src/definitions/velocity';
 
 describe('Testing Velocity definition', () => {
-
-  const def = require('../../definitions/velocity');
 
   test('define base', () => {
     expect(def.base).toBe('meter/second');

@@ -1,8 +1,6 @@
-'use strict';
+import def from '../../src/definitions/temperature';
 
 describe('Testing Temperature definition', () => {
-
-  const def = require('../../definitions/temperature');
 
   test('define base', () => {
     expect(def.base).toBe('kelvin');

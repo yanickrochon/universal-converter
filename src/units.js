@@ -1,4 +1,4 @@
-const assert = require('./util/assert');
+import assert from './util/assert';
 
 
 /**
@@ -10,7 +10,7 @@ const unitCache = {};
 /**
 Register and retrive registered unit definitions
 */
-const Units = {
+export default {
 
   /**
   Register a new type definition.
@@ -221,10 +221,4 @@ class UnitDefinition {
 
     return fn.call(this, params || {});
   }
-}
-
-
-/**
-Expose a singleton instance of Units, a class to register and retrieve unit definitions
-*/
-module.exports = Units;
+};

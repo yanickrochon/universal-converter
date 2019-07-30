@@ -1,8 +1,7 @@
-'use strict';
+import def from '../../src/definitions/area';
+
 
 describe('Testing Area definition', () => {
-
-  const def = require('../../definitions/area');
 
   test('define base', () => {
     expect(def.base).toBe('square meter');
@@ -26,6 +25,5 @@ describe('Testing Area definition', () => {
 
     // TODO : check more conversions (i.e. validating unit values)
   });
-
 
 });
