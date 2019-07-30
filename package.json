@@ -1,6 +1,6 @@
 {
   "name": "universal-converter",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "Convert just about anything to anything else.",
   "author": "Yanick Rochon <yanick.rochon@gmail.com>",
   "license": "MIT",
@@ -9,9 +9,9 @@
   "module": "./esm/index.js",
   "scripts": {
     "build": "npm run build:cjs && npm run build:esm && npm run build:es && npm run build:umd && npm run build:copy-files",
-    "build:cjs": "npx cross-env NODE_ENV=production BABEL_ENV=cjs babel --config-file babel.config.js ./src --out-dir ./build --ignore ./test",
-    "build:esm": "npx cross-env NODE_ENV=production BABEL_ENV=esm babel --config-file babel.config.js ./src --out-dir ./build/esm --ignore ./test",
-    "build:es": "npx cross-env NODE_ENV=production BABEL_ENV=es babel --config-file babel.config.js ./src --out-dir ./build/es --ignore ./test",
+    "build:cjs": "npx cross-env NODE_ENV=production BABEL_ENV=cjs babel ./src --out-dir ./build --ignore ./test",
+    "build:esm": "npx cross-env NODE_ENV=production BABEL_ENV=esm babel ./src --out-dir ./build/esm --ignore ./test",
+    "build:es": "npx cross-env NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./build/es --ignore ./test",
     "build:umd": "npx cross-env BABEL_ENV=production-umd npx rollup -c scripts/rollup.config.js",
     "build:copy-files": "node scripts/copy-files.js",
     "prebuild": "npx rimraf build",
@@ -39,10 +39,10 @@
   "devDependencies": {
     "@babel/core": "^7.5.5",
     "@babel/plugin-proposal-class-properties": "^7.2.1",
+    "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@babel/plugin-transform-object-assign": "^7.2.0",
     "@babel/plugin-transform-runtime": "^7.2.0",
     "@babel/preset-env": "^7.5.5",
-    "@babel/runtime": "^7.5.5",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-optimize-clsx": "^2.2.0",
     "babel-plugin-transform-dev-warning": "^0.1.1",
@@ -62,5 +62,7 @@
   "engines": {
     "node": ">= 10"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.5.5"
+  }
 }

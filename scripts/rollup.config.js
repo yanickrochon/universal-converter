@@ -12,7 +12,7 @@ const globals = {
   Units: "Units"
 };
 const babelOptions = {
-  exclude: /node_modules/,
+  exclude: ["./build/**", "node_modules/**"],
   // We are using @babel/plugin-transform-runtime
   runtimeHelpers: true,
   configFile: './babel.config.js',

@@ -1,14 +1,5 @@
 const bpmr = require('babel-plugin-module-resolver');
 
-function resolvePath(sourcePath, currentFile, opts) {
-  if (sourcePath === 'markdown') {
-    const base = currentFile.substring(__dirname.length).slice(0, -3);
-    return `${__dirname}/docs/src/${base}/`;
-  }
-
-  return bpmr.resolvePath(sourcePath, currentFile, opts);
-}
-
 let defaultPresets;
 
 if (process.env.BABEL_ENV === 'es') {
@@ -45,7 +36,11 @@ module.exports = {
   ignore: [/@babel[\\|/]runtime/], // Fix a Windows issue.
   env: {
     cjs: {
-      plugins: productionPlugins,
+      plugins: productionPlugins.concat([ 
+        ["@babel/plugin-transform-modules-commonjs", { 
+          loose: true
+        }]
+      ]),
     },
     development: {
       plugins: [
