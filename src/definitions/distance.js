@@ -9,15 +9,9 @@ export default {
       time: 'time'
     },
     converters: {
-      squareWidth(params) {
-        return Math.sqrt(params.surface);
-      },
-      rectangleWidth(params) {
-        return params.surface / params.length;
-      },
-      velocityAndTime(params) {
-        return (params.initialVelocity + params.velocity) * params.time / 2;
-      }
+      squareWidth: ({ surface }) => Math.sqrt(surface),
+      rectangleWidth: ({ surface, length }) => surface / length,
+      velocityAndTime: ({ initialVelocity, velocity, time }) => (initialVelocity + velocity) * time / 2
     }
   },
   base: 'meter',
@@ -25,6 +19,8 @@ export default {
     'in': 'inch [international, U.S.]',
     'ft': 'feet [international, U.S.]',
     'yd': 'yard',
+    'mm': 'millimeter',
+    'cm': 'centimeter',
     'm': 'meter',
     'km': 'kilometer',
     'inch': 'inch [international, U.S.]',

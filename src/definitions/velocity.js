@@ -8,12 +8,8 @@ export default {
       time: 'time'
     },
     converters: {
-      accelerationAndTime(params) {
-        return (params.initialVelocity || 0) + ((params.acceleration || 0) * params.time);
-      },
-      initialVelocity(params) {
-        return (params.velocity || 0) - ((params.acceleration || 0) * params.time);
-      }
+      accelerationAndTime: ({ initialVelocity, acceleration, time }) => (initialVelocity || 0) + ((acceleration || 0) * time),
+      initialVelocity: ({ velocity, acceleration, time }) => (velocity || 0) - ((acceleration || 0) * time)
     }
   },
   base: 'meter/second',

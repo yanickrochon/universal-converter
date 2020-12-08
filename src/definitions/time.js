@@ -8,12 +8,8 @@ export default {
       distance: 'distance'
     },
     converters: {
-      velocityOverAcceleration(params) {
-        return ((params.velocity || 0) - (params.initialVelocity || 0)) / params.acceleration;
-      },
-      distanceOverVelocity(params) {
-        return params.distance * 2 / ((params.initialVelocity || 0) + params.velocity);
-      }
+      velocityOverAcceleration: ({ initialVelocity, velocity, acceleration }) => ((velocity || 0) - (initialVelocity || 0)) / acceleration,
+      distanceOverVelocity: ({ initialVelocity, velocity, distance }) => distance * 2 / ((initialVelocity || 0) + velocity)
     }
   },
   base: 'second',

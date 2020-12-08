@@ -6,12 +6,8 @@ export default {
       length: 'distance'
     },
     converters: {
-      squareArea(params) {
-        return params.width * params.width;
-      },
-      rectangleArea(params) {
-        return params.width * params.length;
-      }
+      squareArea: ({ width }) => width * width,
+      rectangleArea: ({ width, length }) => width * length
     }
   },
   base: 'square meter',

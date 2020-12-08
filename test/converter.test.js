@@ -2,6 +2,7 @@
 import Converter from '../src/converter';
 import Units from '../src/units';
 
+
 describe('Testing Converter', () => {
 
   beforeEach(() => {
@@ -102,5 +103,26 @@ describe('Testing Converter', () => {
     });
 
   });
+
+
+  describe('Extending converters', () => {
+
+    test('adding new conversion function', () => {
+
+      // register new parameter, which is of unit type 'distance'
+      Units.get('area').conversion.params.apothem = 'distance';
+      // add converter for area of a pentagon, use sementic function name
+      Units.get('area').conversion.converters.pentagonArea = ({ width, apothem }) => (5 / 2) * width * apothem;
+
+      // anywhere
+      const area = Converter.convert('area')
+        .using('pentagonArea')
+        .with({ width: '10 m', apothem: '5 m' })
+        .to('square meter');
+      
+      expect(area).toBe(125);
+    });
+
+  })
 
 });

@@ -28,7 +28,7 @@ export default {
 
   See : UnitDefinition for more information.
 
-  @param data {object}
+  @param def {object}
   */
   register(def) {
     const typeDef = new UnitDefinition(def);
@@ -38,7 +38,7 @@ export default {
 
   /**
   Unregister a unit type
-  @param type {string}
+  @param typeName {string}
   */
   unregister(typeName) {
     assert(typeof typeName === 'string' && typeName.length, 'Invalid type');
@@ -50,7 +50,8 @@ export default {
   /**
   Return an array of all available units. If type is specified, then
   return all units of the same type.
-  @param type {string} (optional)
+  @param typeName {string} (optional)
+  @throws {TypeError} if not a known unit type name
   @return {Array}
   */
   available(typeName) {
@@ -79,9 +80,10 @@ export default {
   },
 
   /**
-  Return the unit type
+  Return the UnitDefinition instance for the specified type name
   @param typeName {String}
-  @return {object}
+  @throws {TypeError} if not a known unit type name
+  @return {UnitDefinition}
   */
   get(typeName) {
     if (!(typeName in unitCache)) {
@@ -93,7 +95,7 @@ export default {
   /**
   Return the first type definition name found for the given unit
   @param unit {string}
-  @return {string}
+  @return {string|undefined}
   */
   getUnitTypeName(unit) {
     return Object.keys(unitCache).find(typeName => {
@@ -108,19 +110,18 @@ export default {
 
 /**
 Wrap unit definitions with helper methods and validations.
-@private
 */
-class UnitDefinition {
-  constructor(data) {
-    assert(typeof data.name === 'string' && data.name, 'Definition has no name');
-    assert(typeof data.base === 'string' && data.base, 'Definition has no base unit : ' + data.name);
-    assert(data.units && Object.keys(data.units).length, 'Definition has no units : ' + data.name);
+export class UnitDefinition {
+  constructor({ name, base, units, aliases, conversion }) {
+    assert(typeof name === 'string' && name, 'Definition has no name');
+    assert(typeof base === 'string' && base, 'Definition has no base unit : ' + name);
+    assert(units && Object.keys(units).length, 'Definition has no units : ' + name);
 
-    this.name = data.name;
-    this.base = data.base;
-    this.units = data.units;
-    this.aliases = data.aliases || {};
-    this.conversion = data.conversion || {};
+    this.name = name;
+    this.base = base;
+    this.units = units;
+    this.aliases = aliases || {};
+    this.conversion = conversion || {};
 
     assert(this.base in this.units, 'Invalid base "' + this.base + '" in definition : ' + this.name);
 

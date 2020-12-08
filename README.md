@@ -25,6 +25,8 @@ arithmetics allow. Do not use if lives are involed, or if manipulating banking m
 
 ```js
 var Converter = require('universal-converter');
+// or
+import Converter from 'universal-converter';
 
 /** Convert from one unit to another **/
 Converter.convert('distance').from(2000, 'm').to('km');    // 2000 m = ? km
@@ -38,11 +40,11 @@ Converter.convert('speed').from('100 kph').to('mph');   // 100 km/h = ? mp/h
 Converter.convert('area')
   .using('squareArea')
   .with( 'width', 100, 'inch' )
-  .to('square foot') + ' ft²';    // 100 in * 100 in = ? ft²
+  .to('square foot') + ' ft²';   // 100 in * 100 in = ? ft²
 // -> "69.44444444444444 ft²"
 Converter.convert('area')
   .using('rectangleArea')
-  .with('width', ' 60 inch')
+  .with('width', ' 60 inch')     // same as .with({ width: '60 inch', length: [84, 'feet'] })
   .with('length', '84 feet')
   .to('square meter') + ' m²';   // 60 in * 84 ft = ? m²
 // -> "39.01927680000001 m¹"
@@ -58,6 +60,54 @@ Converter.convert('distance').isCompatible('area');   // can a distance be conve
 // -> true
 Converter.convert('area').isCompatible('velocity');   // can an area be converted to a velocity?
 // -> false
+
+
+Converter.Units.types;
+// -> ... array of all available unit types,
+// ex: ['acceleration', 'angle', 'area', ..., 'mass', ..., 'velocity', ...]
+Converter.Units.available();
+// -> ... array of all available units across all unit types, 
+// ex: [..., 'in', ..., 'inch [international, U.S.]', ...]
+Converter.Units.available('binary');
+// -> ['bit', 'byte', 'kilobyte', 'megabyte', ..., 'KB', 'MB', ...]
+Converter.Units.getUnitTypeName('mph');
+// -> 'velocity'
+Converter.Units.get('velocity');
+// -> [Object:UnitDefinition]
+```
+
+Alternative import methods :
+
+```js
+import { Converter, convert, Units } from 'universal-converter';
+
+import Converter from 'universal-converter/converter';
+import Units, { UnitDefinition } from 'universal-converter/units';
+
+Converter.convert === convert;
+// -> true
+```
+
+**Note:** the main module must be imported in order to have all available types registered!
+For example, importing `universal-converter/converter` and *not* `universal-converter` will
+cause all conversions attempt to fail. For manual control over the available types, users
+must import them manually.
+
+```js
+import Converter from 'universal-converter/converter';
+import Units from 'universal-converter/units';
+import distanceDef from 'universal-converter/definitions/distance';
+
+Units.register(distanceDef);
+
+Units.types;
+// -> ['distance']
+
+Converter.convert('distance').from('1 km').to('mile');
+// -> 0.6213712
+
+Converter.convert('speed').from('100 kph').to('mph');
+// Error! Invalid unit type name : 'speed'
 ```
 
 ### API
@@ -69,12 +119,17 @@ Converter.convert( type : String )
     .using( fnName : String )
       .with( paramName : String, value : Number, unit : String ) : [Circular]
       .with( paramName : String, valueAndUnit : String ) : [Circular]
-      .with( params : Object ) : [Circular]
+      .with( params : Object<String,String|Array<String>> ) : [Circular]
       .to( unit : String ) : Number
     .isCompatible( type : String ) : Boolean
+
+Units.types : Array<String>
+Units.available([ typename : String ]) : Array<String>
+Units.get(typename : String) : UnitDefinition
+Units.getUnitTypeName(type : String) : String
 ```
 
-Since this API is chainable, one may preserve the state of the `Converter` and
+**Note:** Since the `Converter` API is chainable, one may preserve the state at any time and
 reuse it with different parameters and values. For example:
 
 ```js
@@ -94,7 +149,7 @@ console.log(rect.to('square yard'));
 console.log(rect.to('acre'));
 // -> 0.8264462809917354
 
-rect.with('width', '75 meter');        // reset param 'width'
+rect.with({ width: '75 meter' });        // reset param 'width'
 console.log(rect.to('square yard'));
 // -> 8202.099737532808
 console.log(rect.to('acre'));
@@ -214,6 +269,33 @@ Please, view the [definitions](definitions/) package directory for more informat
   .to('meter')
   // -> 331.9272
   ```
+
+
+## Extending functionality
+
+The API of this module is as flexible as it gets. It's use is as simple as a
+single module import, or as custom as ipmorting only the required units. Consequently,
+new unit types, new units, and new conversion functions can be defined and used
+seemlessly with the API.
+
+For examle :
+
+```js
+import Converter, { Units } from 'universal-converter';
+
+// register new parameter, which is of unit type 'distance'
+Units.get('area').conversion.params.apothem = 'distance';
+// add converter for area of a pentagon, use sementic function name
+Units.get('area').conversion.converters.pentagonArea = ({ width, apothem }) => (5 / 2) * width * apothem;
+
+// anywhere
+Converter.convert('area')
+  .using('pentagonArea')
+  .with({ width: '10 m', apothem: '5 m' })
+  .to('square meter');
+// -> 125
+
+```
 
 
 ## Contribution

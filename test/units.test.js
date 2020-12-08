@@ -61,6 +61,10 @@ describe('Testing Units', () => {
     expect(Units.available().sort()).toEqual(allUnits);
   });
 
+  test('throw when invalid type name', () => {
+    expect(() => Units.available('phoneyUnitType')).toThrow('Invalid unit type name');
+  });
+
   test('throw when trying to get invalid type', () => {
     expect(() => Units.get('missingType')).toThrow(/Invalid unit type/);
   });

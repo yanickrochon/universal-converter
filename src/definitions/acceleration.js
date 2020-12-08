@@ -7,9 +7,7 @@ export default {
       time: 'time'
     },
     converters: {
-      velocityOverTime(params) {
-        return ((params.velocity || 0) - (params.initialVelocity || 0)) / params.time;
-      }
+      velocityOverTime: ({ velocity, initialVelocity, time }) => ((velocity || 0) - (initialVelocity || 0)) / time
     }
   },
   base: 'meter/square second',
