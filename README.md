@@ -274,11 +274,11 @@ Please, view the [definitions](definitions/) package directory for more informat
 ## Extending functionality
 
 The API of this module is as flexible as it gets. It's use is as simple as a
-single module import, or as custom as ipmorting only the required units. Consequently,
+single module import, or as custom as importing only the required units. Consequently,
 new unit types, new units, and new conversion functions can be defined and used
 seemlessly with the API.
 
-For examle :
+For example :
 
 ```js
 import Converter, { Units } from 'universal-converter';
