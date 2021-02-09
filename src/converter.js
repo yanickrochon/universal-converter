@@ -18,20 +18,22 @@ export default {
         }
       },
       using(converter) {
-        assert(typeDef.hasConverter(converter), 'Unknown conversion function "' + converter + '" found for type definition "' + typeName + '"');
+        assert(typeDef.hasConverter(converter), `Unknown conversion function "${converter}" found for type definition "${typeName}"`);
 
         const params = {};
 
         return {
           with(name, value, unit) {
             if (typeof name === 'string') {
+              assert(name in typeDef.conversion.params, `Unknown argument "${name}" in conversion function "${converter}", expected one of : "${Object.keys(typeDef.conversion.params).join('", "')}"`);
+
               const param = measureParser(value, unit);
               const paramTypeName = typeDef.conversion.params[name];
               const paramTypeDef = Units.get(paramTypeName);
 
               params[name] = paramTypeDef.calcBase(param.value, param.unit);
             } else if (arguments.length === 1) {
-              assert(name && (typeof name === 'object'), 'Invalid argument "' + name + '"');
+              assert(name && (typeof name === 'object'), `Invalid argument "${name}"`);
 
               const keys = Object.keys(name);
 

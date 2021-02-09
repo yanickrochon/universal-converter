@@ -123,6 +123,12 @@ describe('Testing Converter', () => {
       expect(area).toBe(125);
     });
 
-  })
+    test('throwing relevant error when using unknown function arguments', () => {
+
+      expect(() => Converter.convert('distance').using('rectangle').with('invalid', 'test')).toThrow('Unknown argument "invalid" in conversion function "rectangle", expected one of : "surface", "width"');
+
+    });
+
+  });
 
 });

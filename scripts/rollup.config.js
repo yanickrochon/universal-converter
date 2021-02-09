@@ -15,7 +15,7 @@ const babelOptions = {
   exclude: ["./build/**", "node_modules/**"],
   // We are using @babel/plugin-transform-runtime
   runtimeHelpers: true,
-  configFile: './babel.config.js',
+  configFile: './babel.config.cjs',
 };
 const commonjsOptions = {
   ignoreGlobal: true,

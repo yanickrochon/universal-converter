@@ -1,6 +1,7 @@
-const path = require('path');
-const fse = require('fs-extra');
-const glob = require('glob');
+import path from 'path';
+import fse from 'fs-extra';
+import glob from 'glob';
+
 
 const packagePath = process.cwd();
 const buildPath = path.join(packagePath, './build');

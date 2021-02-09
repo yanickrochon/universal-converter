@@ -1,17 +1,23 @@
 {
   "name": "universal-converter",
-  "version": "1.6.4",
+  "version": "1.7.0",
   "description": "Convert just about anything to anything else.",
   "author": "Yanick Rochon <yanick.rochon@gmail.com>",
   "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "require":  "./index.js",
+      "default": "./esm/index.js"
+    }
+  },
   "main": "./index.js",
-  "browser": "./umd/universal-converter.min.js",
   "module": "./esm/index.js",
+  "browser": "./umd/universal-converter.min.js",
   "scripts": {
-    "build": "npm run build:cjs && npm run build:esm && npm run build:es && npm run build:umd && npm run build:copy-files",
+    "build": "npm run build:cjs && npm run build:esm && npm run build:umd && npm run build:copy-files",
     "build:cjs": "npx cross-env NODE_ENV=production BABEL_ENV=cjs babel ./src --out-dir ./build --ignore ./test",
     "build:esm": "npx cross-env NODE_ENV=production BABEL_ENV=esm babel ./src --out-dir ./build/esm --ignore ./test",
-    "build:es": "npx cross-env NODE_ENV=production BABEL_ENV=es babel ./src --out-dir ./build/es --ignore ./test",
     "build:umd": "npx cross-env BABEL_ENV=production-umd npx rollup -c scripts/rollup.config.js",
     "build:copy-files": "node scripts/copy-files.js",
     "prebuild": "npx rimraf build",
@@ -37,21 +43,21 @@
     "physics"
   ],
   "devDependencies": {
-    "@babel/core": "^7.12.9",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-transform-modules-commonjs": "^7.12.1",
-    "@babel/plugin-transform-object-assign": "^7.12.1",
-    "@babel/plugin-transform-runtime": "^7.12.1",
-    "@babel/preset-env": "^7.12.7",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "@babel/core": "^7.12.13",
+    "@babel/plugin-proposal-class-properties": "^7.12.13",
+    "@babel/plugin-transform-modules-commonjs": "^7.12.13",
+    "@babel/plugin-transform-object-assign": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
+    "@babel/preset-env": "^7.12.13",
+    "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-optimize-clsx": "^2.6.1",
     "babel-plugin-transform-dev-warning": "^0.1.1",
     "babelify": "^10.0.0",
     "cross-env": "^7.0.3",
-    "fs-extra": "^9.0.1",
+    "fs-extra": "^9.1.0",
     "jest": "^26.6.3",
     "rimraf": "^3.0.2",
-    "rollup": "^2.34.2",
+    "rollup": "^2.38.5",
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-globals": "^1.4.0",
@@ -60,9 +66,10 @@
     "rollup-plugin-terser": "^7.0.2"
   },
   "engines": {
-    "node": ">= 10"
+    "node": ">= 12"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
+    "@babel/runtime": "^7.12.13",
+    "rollup-plugin-replace": "^2.2.0"
   }
 }

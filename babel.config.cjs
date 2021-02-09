@@ -1,4 +1,4 @@
-const bpmr = require('babel-plugin-module-resolver');
+//const bpmr = require('babel-plugin-module-resolver');
 
 let defaultPresets;
 
@@ -55,9 +55,6 @@ module.exports = {
       ],
     },
     esm: {
-      plugins: productionPlugins,
-    },
-    es: {
       plugins: productionPlugins,
     },
     production: {

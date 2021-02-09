@@ -3,5 +3,10 @@
     "bundled": 127011,
     "minified": 86748,
     "gzipped": 22832
+  },
+  "universal-converter.min.js": {
+    "bundled": 128081,
+    "minified": 86845,
+    "gzipped": 22918
   }
 }

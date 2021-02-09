@@ -1,5 +1,5 @@
 
-module.exports = {
+export default {
    verbose: true,
    globals: {
       "NODE_ENV": "test"
