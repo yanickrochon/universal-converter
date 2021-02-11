@@ -1,6 +1,6 @@
-import Units from './units';
-import measureParser from './util/measure-parser';
-import assert from './util/assert';
+import Units from './units.js';
+import measureParser from './util/measure-parser.js';
+import assert from './util/assert.js';
 
 
 export default {

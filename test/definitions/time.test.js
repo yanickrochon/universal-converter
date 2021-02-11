@@ -1,4 +1,4 @@
-import def from '../../src/definitions/time';
+import def from '../../src/definitions/time.js';
 
 describe('Testing Time definition', () => {
 

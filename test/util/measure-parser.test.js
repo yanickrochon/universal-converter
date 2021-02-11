@@ -1,4 +1,4 @@
-import parser from '../../src/util/measure-parser';
+import parser from '../../src/util/measure-parser.js';
 
 describe('Testing Measure Parser', () => {
 

@@ -1,4 +1,4 @@
-import def from '../../src/definitions/distance';
+import def from '../../src/definitions/distance.js';
 
 describe('Testing Distance definition', function () {
 

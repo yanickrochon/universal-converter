@@ -7,7 +7,7 @@
   "type": "module",
   "exports": {
     ".": {
-      "require":  "./index.js",
+      "require": "./index.js",
       "default": "./esm/index.js"
     }
   },
@@ -49,6 +49,7 @@
     "@babel/plugin-transform-object-assign": "^7.12.13",
     "@babel/plugin-transform-runtime": "^7.12.15",
     "@babel/preset-env": "^7.12.13",
+    "@babel/runtime": "^7.12.13",
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-optimize-clsx": "^2.6.1",
     "babel-plugin-transform-dev-warning": "^0.1.1",
@@ -61,15 +62,12 @@
     "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-size-snapshot": "^0.12.0",
     "rollup-plugin-terser": "^7.0.2"
   },
   "engines": {
     "node": ">= 12"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.12.13",
-    "rollup-plugin-replace": "^2.2.0"
   }
 }

@@ -1,4 +1,4 @@
-import assert from './assert';
+import assert from './assert.js';
 
 const UNIT_VALUE_REGEXP = /(-?\d+(?:\.\d+)?)\s(.+)$/;
 

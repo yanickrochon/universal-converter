@@ -1,6 +1,6 @@
 'use strict';
-import Converter from '../src/converter';
-import Units from '../src/units';
+import Converter from '../src/converter.js';
+import Units from '../src/units.js';
 
 
 describe('Testing Converter', () => {

@@ -1,4 +1,4 @@
-import def from '../../src/definitions/temperature';
+import def from '../../src/definitions/temperature.js';
 
 describe('Testing Temperature definition', () => {
 

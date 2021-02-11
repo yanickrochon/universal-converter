@@ -1,4 +1,4 @@
-import def from '../../src/definitions/acceleration';
+import def from '../../src/definitions/acceleration.js';
 
 
 describe('Testing Accleration definition', () => {

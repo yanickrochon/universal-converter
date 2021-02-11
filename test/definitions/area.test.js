@@ -1,4 +1,4 @@
-import def from '../../src/definitions/area';
+import def from '../../src/definitions/area.js';
 
 
 describe('Testing Area definition', () => {

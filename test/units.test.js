@@ -1,4 +1,4 @@
-import Units from '../src/units';
+import Units from '../src/units.js';
 
 describe('Testing Units', () => {
 

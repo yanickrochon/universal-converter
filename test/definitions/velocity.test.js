@@ -1,4 +1,4 @@
-import def from '../../src/definitions/velocity';
+import def from '../../src/definitions/velocity.js';
 
 describe('Testing Velocity definition', () => {
 
